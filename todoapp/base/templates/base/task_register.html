@@ -1,4 +1,7 @@
 {% extends 'base/main.html' %}
+{% load static %}
+
+{% block css %}{% static "css/register.css" %}{% endblock css %}
 {% block content %}
 
 <div class="header-bar">
@@ -20,8 +23,5 @@
     </form>
     <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </div>
-
-
-
 
 {% endblock content %}

@@ -1,0 +1,98 @@
+/* Общие стили для страницы */
+body {
+    background-color: #f4f1de; /* Цвет пергамента */
+    font-family: 'MedievalSharp', cursive; /* Шрифт в средневековом стиле */
+    color: #3d405b; /* Цвет текста */
+    margin: 0;
+    padding: 0;
+}
+
+/* Шапка */
+.header-bar {
+    background-color: #8b4513; /* Цвет дерева */
+    color: #f4f1de; /* Цвет текста */
+    padding: 20px;
+    text-align: center;
+    border-bottom: 5px solid #5a3a22; /* Темная граница */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-bar h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Форма */
+form {
+    background-color: #e6ccb2; /* Цвет светлого дерева */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+    border: 5px solid #8b4513; /* Граница в стиле дерева */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+form p {
+    margin: 10px 0;
+}
+
+form label {
+    font-size: 1.2rem;
+    color: #5a3a22; /* Темный цвет для текста */
+}
+
+form input[type="text"],
+form input[type="password"] {
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid #8b4513; /* Граница в стиле дерева */
+    border-radius: 5px;
+    background-color: #f4f1de; /* Цвет пергамента */
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1rem;
+    color: #3d405b;
+}
+
+form input[type="text"]:focus,
+form input[type="password"]:focus {
+    outline: none;
+    border-color: #5a3a22; /* Темная граница при фокусе */
+}
+
+/* Кнопка */
+input[type="submit"] {
+    background-color: #8b4513; /* Цвет дерева */
+    color: #f4f1de; /* Цвет текста */
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'MedievalSharp', cursive;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    margin-left: 40%
+}
+
+input[type="submit"]:hover {
+    background-color: #5a3a22; /* Темный цвет при наведении */
+}
+
+/* Ссылка на регистрацию */
+p {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.1rem;
+}
+
+a {
+    color: #8b4513; /* Цвет дерева */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #5a3a22; /* Темный цвет при наведении */
+}
