@@ -41,47 +41,10 @@ class RegisterPage(FormView):
         return super(RegisterPage,self).get(*args, **kwargs)
 
 class TaskList(LoginRequiredMixin,ListView):
+    template_name = "user/library.html"
     model = Task
-    context_object_name = 'tasks'
-
+    context_object_name = "books"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tasks'] = context['tasks'].filter(user = self.request.user)
-        context['count'] = context['tasks'].filter(complete = False).count()
-
-        search_input = self.request.GET.get('search-area') or ''
-        if search_input:
-            context['tasks'] = context['tasks'].filter(
-                title__icontains = search_input)
-            
-        context['search-input'] = search_input
+        context['books'] = self.model.objects.filter(user=self.request.user)
         return context
-
-
-
-class TaskDetail(LoginRequiredMixin,DetailView):
-    model = Task
-    context_object_name = 'task'
-    template_name = 'base/task_detail.html'
-
-class TaskCreate(CreateView):
-    model = Task
-    fields = ['title','description','complete']
-    success_url = reverse_lazy('tasks')
-    template_name = 'base/task_form.html'
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user  # Привязываем задачу к текущему пользователю
-        return super().form_valid(form)
-
-
-class TaskUpdate(LoginRequiredMixin,UpdateView):
-    model = Task
-    fields = ['title','description','complete']
-    success_url = reverse_lazy('tasks')
-
-
-class TaskDelete(LoginRequiredMixin,DeleteView):
-    model = Task
-    context_object_name = "delete"
-    success_url = reverse_lazy("tasks")
