@@ -2,10 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    xp = models.IntegerField(default=0) 
+    level = models.IntegerField(default=1)
+
 class Task(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    title = models.CharField(max_length=200, null=True,blank=True)
-    description = models.TextField(null=True,blank=True)
+    team = models.ForeignKey("Team", on_delete=models.CASCADE, null=True, blank=True, related_name="tasks")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="tasks")
+    title = models.CharField(max_length=200, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     complete = models.BooleanField(default=False)
     created = models.DateField(auto_now_add=True)
 
@@ -14,3 +20,17 @@ class Task(models.Model):
     
     class Meta:
         ordering = ['complete']
+
+class Reward(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    xp = models.CharField(max_length=50)
+
+
+class Team(models.Model):
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_teams")
+    members = models.ManyToManyField(User, related_name="teams")  
+    name = models.CharField(max_length=100) 
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name

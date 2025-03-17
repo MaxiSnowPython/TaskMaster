@@ -1,11 +1,126 @@
-{% extends 'base/main.html' %} {% block content %}
+{% extends 'base/main.html' %}
+{% load static %}
 
+{% block css %}
+{% static 'css/tasks.css' %}
+{% endblock css %}
 
+{% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2 class="sidebar-title">Команды</h2>
+            <button class="sidebar-button" id="team1-btn">1</button>
+            <button class="sidebar-button" id="team2-btn">2</button>
+            <button class="sidebar-button add-team-btn">
+                <span class="icon">+</span>
+            </button>
+            <button class="sidebar-button settings-btn">
+                <span class="icon">⚙️</span>
+            </button>
+            <button class="sidebar-button user-btn">
+                <span class="icon">👤</span>
+            </button>
+        </aside>
 
+        <!-- Team Members Panel -->
+        <aside class="team-members">
+            <h2 class="panel-title">Команда</h2>
+            <div class="team-member">
+                <div class="member-info">
+                    <img src="lead.gif" alt="Tim Lead" class="avatar">
+                    <div>
+                        <p class="member-name">Tim Lead <span class="role-crown">👑</span></p>
+                        <p>Уровень: 10</p>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="member-info">
+                    <img src="alice.gif" alt="Alice" class="avatar">
+                    <div>
+                        <p class="member-name">Alice</p>
+                        <p>Уровень: 5</p>
+                        <button class="assign-task-btn">Дать таск</button>
+                    </div>
+                </div>
+                <button class="remove-member-btn">-</button>
+            </div>
+            <div class="team-member">
+                <div class="member-info">
+                    <img src="bob.gif" alt="Bob" class="avatar">
+                    <div>
+                        <p class="member-name">Bob</p>
+                        <p>Уровень: 7</p>
+                        <button class="assign-task-btn">Дать таск</button>
+                    </div>
+                </div>
+                <button class="remove-member-btn">-</button>
+            </div>
+            <button class="add-member-btn">Добавить участника</button>
+        </aside>
 
+        <!-- Main Content (Tasks) -->
+        <main class="main-content">
+            <h1 class="main-title">Задачи (team1)</h1>
+            <button class="add-task-btn">
+                <span class="icon">+</span> Добавить таск
+            </button>
 
+            <div class="tasks">
+                <div class="task-card">
+                    <div class="task-content">
+                        <h3 class="task-title">Fix bugs</h3>
+                        <p class="task-assigned">Исполнитель: Alice</p>
+                        <p class="task-reward">+50 XP</p>
+                    </div>
+                    <div class="task-actions">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <button class="check-btn">✔️</button>
+                    </div>
+                </div>
+                <div class="task-card">
+                    <div class="task-content">
+                        <h3 class="task-title">Deploy update</h3>
+                        <p class="task-assigned">Исполнитель: Bob</p>
+                        <p class="task-reward">+100 XP</p>
+                    </div>
+                    <div class="task-actions">
+                        <button class="edit-btn">✏️</button>
+                        <button class="delete-btn">🗑️</button>
+                        <button class="check-btn">✔️</button>
+                    </div>
+                </div>
+            </div>
+        </main>
 
+        <!-- Rewards Panel -->
+        <aside class="rewards-panel">
+            <h2 class="panel-title">Награды</h2>
+            <div class="reward-card">
+                <h3 class="reward-title">Fix bugs</h3>
+                <p class="reward-xp">+50 XP</p>
+            </div>
+            <div class="reward-card">
+                <h3 class="reward-title">Deploy update</h3>
+                <p class="reward-xp">+100 XP</p>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
 
 
 
 {% endblock content %}
+
