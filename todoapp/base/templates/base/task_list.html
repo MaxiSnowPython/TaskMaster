@@ -66,9 +66,9 @@
 
         <!-- Main Content (Tasks) -->
         <main class="main-content">
-            {% for team in teams %}
+            {% if team %}
                 <h1 class="main-title">Задачи {{ team.name }}</h1>
-            {% endfor %}
+            {% endif %}
             <button class="add-task-btn">
                 <span class="icon">+</span> Добавить таск
             </button>
