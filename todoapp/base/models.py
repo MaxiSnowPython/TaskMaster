@@ -22,8 +22,9 @@ class Task(models.Model):
         ordering = ['complete']
 
 class Reward(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    xp = models.CharField(max_length=50)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    xp = models.IntegerField()
 
 
 class Team(models.Model):

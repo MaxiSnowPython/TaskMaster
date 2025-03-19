@@ -4,13 +4,13 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
-
+from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import login
 
-from .models import Task,Team
+from .models import Task,Team,Reward,UserProfile
 
 
 # Create your views here.
@@ -39,12 +39,12 @@ class RegisterPage(FormView):
             return redirect('tasks')
         return super(RegisterPage,self).get(*args, **kwargs)
 
-class TeamList(LoginRequiredMixin,ListView):
+class TeamList(LoginRequiredMixin,TemplateView):
     template_name = "base/task_list.html"
-    model = Team
-    context_object_name = "teams"
     def get_context_data(self, **kwargs):
-        print("Залогиненный пользователь:", self.request.user)
         context = super().get_context_data(**kwargs)
-        context['tasks'] = self.model.objects.filter(creator=self.request.user)
+        context['teams'] = Team.objects.filter(members=self.request.user)
+        context['tasks'] = Task.objects.filter(team__members=self.request.user)
+        rewards = Reward.objects.filter(task__user=self.request.user, user=self.request.user)
+        context['rewards'] = rewards
         return context
