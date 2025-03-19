@@ -10,11 +10,10 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth import login
 
-from .models import Task
+from .models import Task,Team
 
 
 # Create your views here.
-
 class CustomLoginView(LoginView):
     template_name = 'base/task_login.html'
     fields = '__all__'
@@ -40,11 +39,12 @@ class RegisterPage(FormView):
             return redirect('tasks')
         return super(RegisterPage,self).get(*args, **kwargs)
 
-class TaskList(LoginRequiredMixin,ListView):
-    template_name = "user/library.html"
-    model = Task
-    context_object_name = "books"
+class TeamList(LoginRequiredMixin,ListView):
+    template_name = "base/task_list.html"
+    model = Team
+    context_object_name = "teams"
     def get_context_data(self, **kwargs):
+        print("Залогиненный пользователь:", self.request.user)
         context = super().get_context_data(**kwargs)
-        context['books'] = self.model.objects.filter(user=self.request.user)
+        context['tasks'] = self.model.objects.filter(creator=self.request.user)
         return context

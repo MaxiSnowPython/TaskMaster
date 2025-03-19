@@ -19,8 +19,9 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <h2 class="sidebar-title">Команды</h2>
-            <button class="sidebar-button" id="team1-btn">1</button>
-            <button class="sidebar-button" id="team2-btn">2</button>
+            {% for team in teams %}
+            <button class="sidebar-button" id="team1-btn">{{team.name}}</button>
+            {% endfor %}
             <button class="sidebar-button add-team-btn">
                 <span class="icon">+</span>
             </button>
