@@ -1,0 +1,92 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block css %}
+  {% static "css/hub.css" %} 
+{% endblock %}
+
+{% block content %}
+
+<!-- Сайдбар теперь ВНЕ hub-container -->
+<aside class="sidebar">
+    <button class="sidebar-button add-team-btn">
+        <span class="icon">🏠</a></span>
+    </button>
+    <h2 class="sidebar-title">Команды</h2>
+    {% if teams %}
+        {% for team in teams %}
+        <a href = "{% url "team" team.pk %}">
+            <button class="sidebar-button">{{ team.name }}</button>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p>No teams found</p>
+    {% endif %}
+    <button class="sidebar-button add-team-btn">
+        <span class="icon">+</span>
+    </button>
+    <button class="sidebar-button settings-btn">
+        <span class="icon">⚙️</span>
+    </button>
+    <button class="sidebar-button user-btn">
+        <span class="icon">👤</span>
+    </button>
+</aside>
+
+<!-- Основной контейнер -->
+<div class="hub-container">
+    <!-- Левая панель - информация о пользователе -->
+    <aside class="profile-sidebar">
+        <img src="{% static 'images/avatar.png' %}" alt="Avatar" class="avatar">
+        <h2>{{ user.username }}</h2>
+        <p>Уровень: {{ user.profile.level }}</p>
+        <p>Опыт: {{ user.profile.xp }} XP</p>
+        <button class="upgrade-btn">Прокачать героя</button>
+    </aside>
+
+    <!-- Центральная часть - список команд и задач -->
+    <main class="hub-main">
+        <h1>RPG ХАБ</h1>
+
+        <section class="teams">
+            <h2>Мои Команды</h2>
+            {% for team in teams %}
+                <h3>{{ team.name }}</h3>
+                <p>Участников: {{ team.members.count }}</p>
+            {% empty %}
+                <p>У тебя пока нет команд.</p>
+            {% endfor %}
+            <button class="create-team-btn">Создать команду</button>
+        </section>
+
+        <section class="tasks">
+            <h2>Мои Квесты</h2>
+            {% for task in tasks %}
+                <div class="task-card">
+                    <h3>{{ task.title }}</h3>
+                    <p>Награда: +{{ task.reward.xp }} XP</p>
+                    <button class="complete-btn">Выполнить</button>
+                </div>
+            {% empty %}
+                <p>Нет активных квестов.</p>
+            {% endfor %}
+        </section>
+    </main>
+
+    <!-- Правая панель - Лидерборд и награды -->
+    <aside class="leaderboard">
+    
+
+        <h2>Награды</h2>
+        {% for reward in rewards %}
+            <div class="reward-card">
+                <h3>{{ reward.task.title }}</h3>
+                <p>+{{ reward.xp }} XP</p>
+            </div>
+        {% empty %}
+            <p>Нет наград.</p>
+        {% endfor %}
+    </aside>
+</div>
+
+{% endblock %}

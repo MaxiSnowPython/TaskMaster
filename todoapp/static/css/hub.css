@@ -1,0 +1,211 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #1a0731, #3b1b5f);
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
+
+/* Сайдбар - слева, фиксированная ширина */
+.sidebar {
+    width: 5rem;
+    background-color: #1b0c3d;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: width 0.3s ease;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.sidebar-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.sidebar:hover .sidebar-title {
+    opacity: 1;
+}
+
+.sidebar-button {
+    background-color: #9b4f96;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+
+.icon {
+    font-size: 1.5rem;
+    transition: transform 0.2s ease;
+}
+
+
+/* Основной контейнер - растягивается на весь экран */
+.hub-container {
+    display: flex;
+    margin-left: 6rem; /* Отступ под sidebar */
+    width: calc(100% - 6rem);
+    height: 100vh;
+ /* Расстояние между колонками */
+}
+
+/* Левая панель (Профиль) - фиксированная ширина */
+.profile-sidebar {
+    flex: 0 0 20%; /* Фиксированная ширина 20% экрана */
+    width: 930px;/* Максимальная ширина */
+    background-color: #4a1d63;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* Центральная панель (Главная) - самая широкая */
+.hub-main {
+    flex: 1; /* Занимает всё оставшееся пространство */
+    min-width: 400px; /* Минимальная ширина */
+    background: #370566;
+    padding: 2rem;
+    border-radius: 12px;
+    overflow-y: auto;
+}
+
+/* Правая панель (Лидерборд) - фиксированная ширина */
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid gold;
+}
+
+.upgrade-btn {
+    background: #ffcc00;
+    border: none;
+    padding: 15px 20px;
+    color: black;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.upgrade-btn:hover {
+    background: #ff9900;
+    transform: scale(1.05);
+}
+
+/* Центральная часть (40% экрана) */
+
+/* Команды */
+.teams, .tasks {
+    margin-bottom: 2rem;
+}
+
+.team-card {
+    background: #4a1f66;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    font-size: 1.3rem;
+}
+
+.team-card:hover {
+    background: #6d2f8c;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.create-team-btn {
+    background: #4caf50;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.create-team-btn:hover {
+    background: #388e3c;
+    transform: scale(1.05);
+}
+
+/* Правая панель - Лидерборд (30% экрана) */
+.leaderboard {
+    flex: 0 0 20%; /* Фиксированная ширина 20% экрана */
+    min-width: 250px; /* Минимальная ширина */
+    max-width: 300px; /* Максимальная ширина */
+    background-color: #4a1d63;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+
+.reward-card {
+    background: #5a297a;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.reward-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.complete-btn{
+    background: #4caf50;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.complete-btn:hover {
+    background: #388e3c;
+    transform: scale(1.05);
+}

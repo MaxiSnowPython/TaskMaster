@@ -6,22 +6,18 @@
 {% endblock css %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
     <div class="container">
         <!-- Sidebar -->
         <aside class="sidebar">
+            <button class="sidebar-button add-team-btn">
+                <span class="icon"><a href="{% url "hub" %}">🏠</a></span>
+            </button>
             <h2 class="sidebar-title">Команды</h2>
             {% if teams %}
             {% for team in teams %}
-                <button class="sidebar-button" id="team1-btn">{{ team.name }}</button>
+            <a href = "{% url "team" team.pk %}">
+                <button class="sidebar-button">{{ team.name }}</button>
+            </a>
             {% endfor %}
         {% else %}
             <p>No teams found</p>
@@ -37,46 +33,41 @@
             </button>
         </aside>
 
-
-       
         <!-- Team Members Panel -->
-        {% for team in teams %}
         <aside class="team-members">
-            <h2 class="panel-title">Команда: {{team.name}}</h2>
-
-            {%endfor%}
-    {% for team in teams %}
-    {% for member in team.members.all %}
-    <div class="team-member">
-
-        
-            <div class="member-info">
-                <img src="alice.gif" alt="Alice" class="avatar">
-                <div>
-                    {% if  member == team.creator %}
-                    <p class="member-name">{{ member.username }} 👑</p>
-                    
-                    {% else %}
-                    <p class="member-name">{{ member.username }}</p>
-                    {% endif %}
-                    <p>Уровень: 5</p>
-                    <button class="assign-task-btn">Дать таск</button>
-                </div>
-            </div>
-        <br>
-        <button class="remove-member-btn">Убрать из команды</button>
-        
-    </div>
-    {% endfor %}
-    {% endfor %}
-
-            <button class="add-member-btn">Добавить участника</button>
+            {% if team %}
+            <h2>Участники команды: {{ team.name }}</h2>
+            {% if team.members.all %}
+                {% for member in team.members.all %}
+                    <div class="team-member">
+                        <div class="member-info">
+                            <img src="alice.gif" alt="Alice" class="avatar">
+                            <div>
+                                {% if member == team.creator %}
+                                    <p class="member-name">{{ member.username }} 👑</p>
+                                {% else %}
+                                    <p class="member-name">{{ member.username }}</p>
+                                {% endif %}
+                                <p>Уровень: 5</p>
+                                <button class="assign-task-btn">Дать таск</button>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="remove-member-btn">Убрать из команды</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>В этой команде пока нет участников.</p>
+            {% endif %}
+        {% else %}
+            <p>Команда не выбрана.</p>
+        {% endif %}
         </aside>
 
         <!-- Main Content (Tasks) -->
         <main class="main-content">
             {% for team in teams %}
-            <h1 class="main-title">Задачи {{ team.name }}</h1>
+                <h1 class="main-title">Задачи {{ team.name }}</h1>
             {% endfor %}
             <button class="add-task-btn">
                 <span class="icon">+</span> Добавить таск
@@ -84,50 +75,43 @@
             
             <div class="tasks">
                 {% for task in tasks %}
-                <div class="task-card">
-                    <div class="task-content">
-                        <h3 class="task-title">{{task.title}}</h3>
-                        <p class="task-assigned">Исполнитель: {{task.user}}</p>
-                        {% for reward in rewards  %}
-                        {% if reward.task == task %}
-                        <p class="reward-xp">+{{reward.xp}}</p>
-                        {% endif %}
-                        {% endfor %}
 
-                        <div class="task-actions">
-                            <button class="edit-btn">✏️</button>
-                            <button class="delete-btn">🗑️</button>
-                            <button class="check-btn">✔️</button>
+                    <div class="task-card">
+                        <div class="task-content">
+                            <h3 class="task-title">{{ task.title }}</h3>
+                            <p class="task-assigned">Исполнитель: {{ task.user }}</p>
+                            
+                            {% for reward in rewards %}
+                                {% if reward.task == task %}
+                                    <p class="reward-xp">+{{ reward.xp }}</p>
+                                {% endif %}
+                            {% endfor %}
+
+                            <div class="task-actions">
+                                <button class="edit-btn">✏️</button>
+                                <button class="delete-btn">🗑️</button>
+                                <button class="check-btn">✔️</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                    
-                    {% endfor %}
-                </div>
-                
+
+                {% endfor %}
             </div>
-            
         </main>
 
         <!-- Rewards Panel -->
         <aside class="rewards-panel">
             <h2 class="panel-title">Награды</h2>
-            {% for task in tasks  %}
-            <div class="reward-card">
-                <h3 class="reward-title">{{task.title}}</h3>
-                {% for reward in rewards  %}
-                {% if reward.task == task %}
-                <p class="reward-xp">+{{reward.xp}}</p>
-                {% endif %}
-                {% endfor %}
-            </div>
+            {% for task in tasks %}
+                <div class="reward-card">
+                    <h3 class="reward-title">{{ task.title }}</h3>
+                    {% for reward in rewards %}
+                        {% if reward.task == task %}
+                            <p class="reward-xp">+{{ reward.xp }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             {% endfor %}
         </aside>
     </div>
-</body>
-</html>
-
-
-
 {% endblock content %}
-

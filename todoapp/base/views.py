@@ -19,7 +19,7 @@ class CustomLoginView(LoginView):
     fields = '__all__'
     redirect_authenticated_user = True
     def get_success_url(self):
-        return reverse_lazy('tasks')
+        return reverse_lazy('hub')
     
 
 class RegisterPage(FormView):
@@ -42,9 +42,34 @@ class RegisterPage(FormView):
 class TeamList(LoginRequiredMixin,TemplateView):
     template_name = "base/task_list.html"
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
+
         context['teams'] = Team.objects.filter(members=self.request.user)
-        context['tasks'] = Task.objects.filter(team__members=self.request.user)
-        rewards = Reward.objects.filter(task__user=self.request.user, user=self.request.user)
-        context['rewards'] = rewards
+        team_id = self.kwargs.get('team_id')
+        if team_id:
+            context['team'] = Team.objects.get(id=team_id, members=self.request.user)
+            context['tasks'] = Task.objects.filter(team_id=team_id, team__members=self.request.user)
+            context['rewards'] = Reward.objects.filter(task__team_id=team_id, user=self.request.user)    
+        else:
+            # Если team_id не передан, показываем все задачи и награды пользователя
+            context['tasks'] = Task.objects.filter(team__members=self.request.user)
+            context['rewards'] = Reward.objects.filter(task__user=self.request.user, user=self.request.user)
+            
+        return context
+
+
+class HubView(LoginRequiredMixin, TemplateView):
+    template_name = "base/hub.html"  # Шаблон, который будет использоваться
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user  # Получаем текущего пользователя
+        
+        context['user'] = user
+        context['teams'] = Team.objects.filter(members=user)
+        context['tasks'] = Task.objects.filter(user=user)
+        context['rewards'] = Reward.objects.filter(user=user)
+        context['leaderboard'] = UserProfile.objects.order_by('-xp')[:10]  # Топ-10 игроков
+
         return context
