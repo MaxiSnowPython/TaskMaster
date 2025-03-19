@@ -22,9 +22,11 @@
         {% else %}
             <p>No teams found</p>
         {% endif %}
+        <a href = "{% url "create_team" %}">
             <button class="sidebar-button add-team-btn">
                 <span class="icon">+</span>
             </button>
+        </a>
             <button class="sidebar-button settings-btn">
                 <span class="icon">⚙️</span>
             </button>

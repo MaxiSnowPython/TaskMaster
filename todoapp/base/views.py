@@ -72,3 +72,13 @@ class HubView(LoginRequiredMixin, TemplateView):
         context['leaderboard'] = UserProfile.objects.order_by('-xp')[:10]  # Топ-10 игроков
 
         return context
+    
+class CreateTeam(LoginRequiredMixin, CreateView):
+
+    model = Team
+    template_name = "base/create_team.html"
+    fields = '__all__'
+    success_url = reverse_lazy('hub')
+    def form_valid(self, form):
+        form.instance.user = self.request.user  # Привязываем задачу к текущему пользователю
+        return super().form_valid(form)
