@@ -51,7 +51,9 @@
                                     <p class="member-name">{{ member.username }}</p>
                                 {% endif %}
                                 <p>Уровень: 5</p>
+                                <a href = "{% url "task_create" %}">
                                 <button class="assign-task-btn">Дать таск</button>
+                                </a>
                             </div>
                         </div>
                         <br>
@@ -71,27 +73,22 @@
             {% if team %}
                 <h1 class="main-title">Задачи {{ team.name }}</h1>
             {% endif %}
-            <button class="add-task-btn">
-                <span class="icon">+</span> Добавить таск
-            </button>
-            
+     
             <div class="tasks">
                 {% for task in tasks %}
-
-                    <div class="task-card">
-                        <div class="task-content">
-                            <h3 class="task-title">{{ task.title }}</h3>
-                            <p class="task-assigned">Исполнитель: {{ task.user }}</p>
-                            
-                            {% for reward in rewards %}
-                                {% if reward.task == task %}
-                                    <p class="reward-xp">+{{ reward.xp }}</p>
-                                {% endif %}
-                            {% endfor %}
-
+                <div class="task-card">
+                    <div class="task-content">
+                        <h3 class="task-title">{{ task.title }}</h3>
+                        <p class="task-assigned">Исполнитель: {{ task.user }}</p>
+                        
+                        {% for reward in task.reward_set.all %}
+                            <p class="reward-xp">+{{ reward.xp }}</p>
+                        {% endfor %}
                             <div class="task-actions">
                                 <button class="edit-btn">✏️</button>
+                                <a href = "{% url 'delete_task' task.id %}">
                                 <button class="delete-btn">🗑️</button>
+                                </a>
                                 <button class="check-btn">✔️</button>
                             </div>
                         </div>

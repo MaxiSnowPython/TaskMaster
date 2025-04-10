@@ -49,11 +49,11 @@ class TeamList(LoginRequiredMixin,TemplateView):
         if team_id:
             context['team'] = Team.objects.get(id=team_id, members=self.request.user)
             context['tasks'] = Task.objects.filter(team_id=team_id, team__members=self.request.user)
-            context['rewards'] = Reward.objects.filter(task__team_id=team_id, user=self.request.user)    
+            context['rewards'] = Reward.objects.all()  
         else:
             # Если team_id не передан, показываем все задачи и награды пользователя
             context['tasks'] = Task.objects.filter(team__members=self.request.user)
-            context['rewards'] = Reward.objects.filter(task__user=self.request.user, user=self.request.user)
+            context['rewards'] = Reward.objects.all()
             
         return context
 
@@ -68,11 +68,12 @@ class HubView(LoginRequiredMixin, TemplateView):
         context['user'] = user
         context['teams'] = Team.objects.filter(members=user)
         context['tasks'] = Task.objects.filter(user=user)
-        context['rewards'] = Reward.objects.filter(user=user)
+        context['rewards'] = Reward.objects.filter()
         context['leaderboard'] = UserProfile.objects.order_by('-xp')[:10]  # Топ-10 игроков
 
         return context
-    
+
+
 class CreateTeam(LoginRequiredMixin, CreateView):
 
     model = Team
@@ -82,3 +83,16 @@ class CreateTeam(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user  # Привязываем задачу к текущему пользователю
         return super().form_valid(form)
+    
+class TaskDelete(LoginRequiredMixin,DeleteView):
+    model = Task
+    context_object_name = "taskd"
+    success_url = reverse_lazy("hub")
+    template_name = "base/delete_task.html"
+
+
+class TaskCreate(LoginRequiredMixin,CreateView):
+    model = Task,Reward
+    template_name = "base/create_task.html"
+    fields = ['title','user']
+    success_url = reverse_lazy("hub")

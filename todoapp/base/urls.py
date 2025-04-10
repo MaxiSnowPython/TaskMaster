@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TeamList,CustomLoginView,RegisterPage,HubView,CreateTeam
+from .views import TeamList,CustomLoginView,RegisterPage,HubView,CreateTeam,TaskDelete,TaskCreate
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -9,4 +9,6 @@ urlpatterns = [
   path('team/<int:team_id>/',TeamList.as_view(), name= 'team'),
   path('hub/',HubView.as_view(),name='hub'),
   path('create_team',CreateTeam.as_view(), name = 'create_team'),
+  path('delete/<int:pk>/', TaskDelete.as_view(), name='delete_task'),
+  path('task_create/',TaskCreate.as_view(),name = "task_create"),
 ]

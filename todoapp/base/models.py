@@ -11,6 +11,7 @@ class Task(models.Model):
     team = models.ForeignKey("Team", on_delete=models.CASCADE, null=True, blank=True, related_name="tasks")
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="tasks")
     title = models.CharField(max_length=200, null=True, blank=True)
+    xp = models.IntegerField()
     description = models.TextField(null=True, blank=True)
     complete = models.BooleanField(default=False)
     created = models.DateField(auto_now_add=True)
@@ -23,7 +24,6 @@ class Task(models.Model):
 
 class Reward(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     xp = models.IntegerField()
 
 

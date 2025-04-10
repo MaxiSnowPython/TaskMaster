@@ -1,0 +1,32 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block css %}{% static "css/task_create.css" %}{% endblock css %}
+
+{% block content %}
+<div class="hub-main">
+
+    <div class="create-task-card">
+        <h1>Создание задачи</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="id_title">Название задачи</label>
+            {{ form.title }}
+
+          
+            <label for="id_title">Название задачи</label>
+            {{form.xp}}
+
+            <label for="id_user">Назначить исполнителя</label>
+            {{ form.user }}
+
+            <input type="submit" value="Создать" class="complete-btn">
+        </form>
+
+    <a href="{% url 'hub' %}" class="back-link">; Вернуться назад</a>
+
+    </div>
+
+</div>
+{% endblock content %}
