@@ -21,7 +21,7 @@
     color: #ffcc00;
 }
 
-.create-task-card input[type="text"],
+.create-task-card input[type="text"],.create-task-card input[type="number"],
 .create-task-card select {
     width: 100%;
     padding: 10px;

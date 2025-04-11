@@ -51,13 +51,16 @@
                                     <p class="member-name">{{ member.username }}</p>
                                 {% endif %}
                                 <p>Уровень: 5</p>
-                                <a href = "{% url "task_create" %}">
+                                <a href = "{% url "task_create" team.pk %}">
                                 <button class="assign-task-btn">Дать таск</button>
                                 </a>
                             </div>
                         </div>
                         <br>
-                        <button class="remove-member-btn">Убрать из команды</button>
+                        <form method="post" action="{% url 'deletemember' team.id member.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="remove-member-btn">Убрать из команды</button>
+                        </form>
                     </div>
                 {% endfor %}
             {% else %}
@@ -66,6 +69,10 @@
         {% else %}
             <p>Команда не выбрана.</p>
         {% endif %}
+        <a href="">
+            <button class="add-member-btn">Добавить участника</button>
+        </a>
+
         </aside>
 
         <!-- Main Content (Tasks) -->
@@ -81,9 +88,8 @@
                         <h3 class="task-title">{{ task.title }}</h3>
                         <p class="task-assigned">Исполнитель: {{ task.user }}</p>
                         
-                        {% for reward in task.reward_set.all %}
-                            <p class="reward-xp">+{{ reward.xp }}</p>
-                        {% endfor %}
+                            <p class="reward-xp">+{{ task.xp }}</p>
+                        
                             <div class="task-actions">
                                 <button class="edit-btn">✏️</button>
                                 <a href = "{% url 'delete_task' task.id %}">
@@ -104,11 +110,7 @@
             {% for task in tasks %}
                 <div class="reward-card">
                     <h3 class="reward-title">{{ task.title }}</h3>
-                    {% for reward in rewards %}
-                        {% if reward.task == task %}
-                            <p class="reward-xp">+{{ reward.xp }}</p>
-                        {% endif %}
-                    {% endfor %}
+                    <p class="reward-xp">+{{ task.xp }}</p>
                 </div>
             {% endfor %}
         </aside>

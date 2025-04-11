@@ -7,13 +7,15 @@ from django.contrib.auth.views import LoginView
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from django.views import View
 
 from django.contrib.auth import login
 
 from .models import Task,Team,Reward,UserProfile
 
 
-# Create your views here.
 class CustomLoginView(LoginView):
     template_name = 'base/task_login.html'
     fields = '__all__'
@@ -26,7 +28,7 @@ class RegisterPage(FormView):
     template_name = 'base/task_register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
-    success_url = reverse_lazy("tasks")
+    success_url = reverse_lazy("hub")
     
     def form_valid(self, form):
         user = form.save()
@@ -90,9 +92,25 @@ class TaskDelete(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy("hub")
     template_name = "base/delete_task.html"
 
+class TeamMemberDelete(LoginRequiredMixin, View):
+    template_name = "base/delete_from_team.html"
+    def post(self, request, team_id, user_id):
+        team = get_object_or_404(Team, pk=team_id)
+        user = get_object_or_404(User, pk=user_id)
+
+        # Удаляем участника из команды
+        if request.user == team.creator or request.user.is_superuser:
+            team.members.remove(user)
+            return redirect('team', team_id=team.id)
+        
 
 class TaskCreate(LoginRequiredMixin,CreateView):
-    model = Task,Reward
+    model = Task
     template_name = "base/create_task.html"
-    fields = ['title','user']
+    fields = ['title','user','xp']
     success_url = reverse_lazy("hub")
+    def form_valid(self, form):
+        team = get_object_or_404(Team, pk=self.kwargs['pk'])
+        form.instance.team = team  # привязываем команду из URL
+        return super().form_valid(form)
+

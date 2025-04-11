@@ -11,7 +11,7 @@ class Task(models.Model):
     team = models.ForeignKey("Team", on_delete=models.CASCADE, null=True, blank=True, related_name="tasks")
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name="tasks")
     title = models.CharField(max_length=200, null=True, blank=True)
-    xp = models.IntegerField()
+    xp = models.IntegerField(null=True)
     description = models.TextField(null=True, blank=True)
     complete = models.BooleanField(default=False)
     created = models.DateField(auto_now_add=True)
