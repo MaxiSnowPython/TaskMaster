@@ -1,0 +1,37 @@
+
+{% extends 'base/main.html' %}
+{% load static %}
+{% block css %}{% static "css/delete.css" %}{% endblock css %}
+
+{% block content %}
+<div class="friends-container" style="max-width: 600px; margin: auto;">
+    <h2>Твои друзья</h2>
+
+    {% if friends %}
+        <ul class="friend-list">
+            {% for friend in friends %}
+                <li style="margin-bottom: 10px;">
+                    {{ friend.username }}
+                    <form method="post" action="{% url 'remove_friend' friend.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Удалить из друзей</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У тебя пока нет друзей 😢</p>
+    {% endif %}
+
+    <hr>
+
+    <h3>Добавить друга по username</h3>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Введите username" class="form-control" required>
+        <br>
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </form>
+</div>
+
+{% endblock content %}

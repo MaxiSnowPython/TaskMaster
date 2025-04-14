@@ -1,0 +1,74 @@
+
+{% extends 'base/main.html' %}
+{% load static %}
+{% block css %}{% static "css/status.css" %}{% endblock css %}
+{% block content %}
+<div class="hub-container">
+    
+    <aside class="sidebar">
+        <button class="sidebar-button add-team-btn">
+            <span class="icon"><a href="{% url "hub" %}">🏠</a></span>
+        </button>
+        <h2 class="sidebar-title">Команды</h2>
+        {% if teams %}
+        {% for team in teams %}
+        <a href = "{% url "team" team.pk %}">
+            <button class="sidebar-button">{{ team.name }}</button>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p>No teams found</p>
+    {% endif %}
+    <a href = "{% url "create_team" %}">
+        <button class="sidebar-button add-team-btn">
+            <span class="icon">+</span>
+        </button>
+    </a>
+ 
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <a href="{% url 'logout' %}">
+            <button class="sidebar-button settings-btn">
+                <span class="icon">⚙️</span>
+            </button>
+        </a>
+    </form>
+        <a href = "{% url "add_friend_to_team" %}">
+        <button class="sidebar-button user-btn">
+            <span class="icon">👤</span>
+        </button>
+
+    </a>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <h1>Добавить друга в команду</h1>
+        <form method="POST" class="add-friend-form">
+            {% csrf_token %}
+            <label for="username">Введите имя пользователя:</label>
+            <input type="text" name="username" id="username" placeholder="Имя пользователя" required>
+            <button type="submit">Добавить в команду</button>
+        </form>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class = "my_friends">
+        <h2 class="my_friends">Мои друзья</h2>
+        {% if friendships %}
+        <ul>
+            {% for friendship in friendships %}
+                <li>{{ friendship.to_user.username }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас пока нет друзей.</p>
+    {% endif %}
+    </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -13,7 +13,7 @@ from django.views import View
 
 from django.contrib.auth import login
 
-from .models import Task,Team,Reward,UserProfile
+from .models import Task,Team,Reward,UserProfile,Friendship
 
 
 class CustomLoginView(LoginView):
@@ -113,4 +113,25 @@ class TaskCreate(LoginRequiredMixin,CreateView):
         team = get_object_or_404(Team, pk=self.kwargs['pk'])
         form.instance.team = team  # привязываем команду из URL
         return super().form_valid(form)
+
+
+class AddFriendToTeamView(View):
+
+    def post(self,request):
+        
+        username = request.POST.get('username')
+        to_user = User.objects.filter(username = username).first()
+        if to_user and request.user != to_user:
+            if not Friendship.objects.filter(from_user=request.user, to_user=to_user).exists():
+                Friendship.objects.create(from_user=request.user, to_user=to_user)
+
+            if not Friendship.objects.filter(from_user=to_user, to_user=request.user).exists():
+                Friendship.objects.create(from_user=to_user, to_user=request.user)
+        return redirect('hub')
+    
+    def get(self, request):
+        user = self.request.user 
+        friendships = Friendship.objects.filter(from_user=request.user)
+        teams = Team.objects.filter(creator=user)
+        return render(request, 'base/status.html',{'friendships':friendships,'teams':teams})
 

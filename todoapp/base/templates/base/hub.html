@@ -10,27 +10,38 @@
 <!-- Сайдбар теперь ВНЕ hub-container -->
 <aside class="sidebar">
     <button class="sidebar-button add-team-btn">
-        <span class="icon">🏠</a></span>
+        <span class="icon"><a href="{% url "hub" %}">🏠</a></span>
     </button>
     <h2 class="sidebar-title">Команды</h2>
     {% if teams %}
-        {% for team in teams %}
-        <a href = "{% url "team" team.pk %}">
-            <button class="sidebar-button">{{ team.name }}</button>
-        </a>
-        {% endfor %}
-    {% else %}
-        <p>No teams found</p>
-    {% endif %}
+    {% for team in teams %}
+    <a href = "{% url "team" team.pk %}">
+        <button class="sidebar-button">{{ team.name }}</button>
+    </a>
+    {% endfor %}
+{% else %}
+    <p>No teams found</p>
+{% endif %}
+<a href = "{% url "create_team" %}">
     <button class="sidebar-button add-team-btn">
         <span class="icon">+</span>
     </button>
-    <button class="sidebar-button settings-btn">
-        <span class="icon">⚙️</span>
-    </button>
+</a>
+
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <a href="{% url 'logout' %}">
+        <button class="sidebar-button settings-btn">
+            <span class="icon">⚙️</span>
+        </button>
+    </a>
+</form>
+    <a href = "{% url "add_friend_to_team" %}">
     <button class="sidebar-button user-btn">
         <span class="icon">👤</span>
     </button>
+
+</a>
 </aside>
 
 <!-- Основной контейнер -->

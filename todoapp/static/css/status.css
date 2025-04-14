@@ -1,0 +1,148 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(45deg, #2d1e6d, #4a1d63);
+    color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+}
+
+/* Контейнер */
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 4rem;
+    background-color: #1b0c3d;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    height: 100vh; /* ключевой момент */
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+/* Заголовки и кнопки в сайдбаре */
+.sidebar-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    transition: opacity 0.3s;
+}
+
+.sidebar-button {
+    background-color: #9b4f96;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar-button:hover {
+    background-color: #c35b8d;
+}
+
+.icon {
+    font-size: 1.3rem;
+}
+
+/* Список друзей */
+.friend-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.friend-list li {
+    background-color: #4a1d63;
+    margin: 0.3rem 0;
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: #eee;
+}
+
+/* Контент */
+.content-container {
+    margin-left: 4rem;
+    height: 100vh;
+    width: calc(100vw - 4rem);
+    display: flex;
+    justify-content: center;   /* центр по горизонтали */
+    align-items: center;       /* центр по вертикали */
+    flex-direction: column;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.content-container h1 {
+    font-size: 1.8rem;
+    color: #ffcef2;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Форма */
+.add-friend-form {
+    background-color: #2b0e44;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    gap: 1rem;
+}
+
+.add-friend-form label {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #ffb3ff;
+}
+
+.add-friend-form input {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #1a0731;
+    font-size: 1rem;
+}
+
+.add-friend-form button {
+    background-color: #9b4f96;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-friend-form button:hover {
+    background-color: #b163b0;
+}

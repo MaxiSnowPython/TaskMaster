@@ -35,3 +35,14 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Friendship(models.Model):
+    from_user = models.ForeignKey(User, related_name='friendship_from', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='friendship_to', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.from_user} is friends with {self.to_user}"
+
+    class Meta:
+        unique_together = ('from_user', 'to_user')

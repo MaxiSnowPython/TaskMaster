@@ -27,12 +27,21 @@
                 <span class="icon">+</span>
             </button>
         </a>
-            <button class="sidebar-button settings-btn">
-                <span class="icon">⚙️</span>
-            </button>
+     
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <a href="{% url 'logout' %}">
+                <button class="sidebar-button settings-btn">
+                    <span class="icon">⚙️</span>
+                </button>
+            </a>
+        </form>
+            <a href = "{% url "add_friend_to_team" %}">
             <button class="sidebar-button user-btn">
                 <span class="icon">👤</span>
             </button>
+
+        </a>
         </aside>
 
         <!-- Team Members Panel -->
