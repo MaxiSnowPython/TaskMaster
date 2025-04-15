@@ -10,10 +10,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.views import View
-
+from django.contrib import messages
 from django.contrib.auth import login
 
-from .models import Task,Team,Reward,UserProfile,Friendship
+from .models import Task,Team,Reward,UserProfile,Profile
 
 
 class CustomLoginView(LoginView):
@@ -115,23 +115,32 @@ class TaskCreate(LoginRequiredMixin,CreateView):
         return super().form_valid(form)
 
 
-class AddFriendToTeamView(View):
 
-    def post(self,request):
-        
+class AddFriendToTeamView(LoginRequiredMixin, View):
+    def post(self, request):
         username = request.POST.get('username')
-        to_user = User.objects.filter(username = username).first()
+        to_user = User.objects.filter(username=username).first()
+
         if to_user and request.user != to_user:
-            if not Friendship.objects.filter(from_user=request.user, to_user=to_user).exists():
-                Friendship.objects.create(from_user=request.user, to_user=to_user)
+            from_profile = request.user.profile
+            to_profile = to_user.profile
 
-            if not Friendship.objects.filter(from_user=to_user, to_user=request.user).exists():
-                Friendship.objects.create(from_user=to_user, to_user=request.user)
+            if to_user not in from_profile.friends.all():
+                from_profile.friends.add(to_user)
+                to_profile.friends.add(request.user)
         return redirect('hub')
-    
-    def get(self, request):
-        user = self.request.user 
-        friendships = Friendship.objects.filter(from_user=request.user)
-        teams = Team.objects.filter(creator=user)
-        return render(request, 'base/status.html',{'friendships':friendships,'teams':teams})
 
+    def get(self, request):
+        user = request.user
+        try:
+            profile = Profile.objects.get(user=user)
+        except Profile.DoesNotExist:
+            profile = Profile.objects.create(user=user)
+            messages.error(request, "Profile does not exist, new profile created.")
+
+        friends = profile.friends.all()
+        teams = Team.objects.filter(creator=user)
+        return render(request, 'base/status.html', {
+            'friendships': friends,
+            'teams': teams
+        })

@@ -29,7 +29,7 @@
         {% csrf_token %}
         <a href="{% url 'logout' %}">
             <button class="sidebar-button settings-btn">
-                <span class="icon">⚙️</span>
+                <span class="icon">🚪</span>
             </button>
         </a>
     </form>
@@ -51,17 +51,12 @@
             <button type="submit">Добавить в команду</button>
         </form>
 
-        {% if messages %}
-            {% for message in messages %}
-                <div class="message {{ message.tags }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
         <div class = "my_friends">
         <h2 class="my_friends">Мои друзья</h2>
         {% if friendships %}
         <ul>
             {% for friendship in friendships %}
-                <li>{{ friendship.to_user.username }}</li>
+                <li>{{ friendship.username }}</li>
             {% endfor %}
         </ul>
     {% else %}

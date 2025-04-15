@@ -1,3 +1,14 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #1a0731, #3b1b5f);
+    color: white;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    transition: background 0.3s ease-in-out;
+}
+
+
 .create-task-card {
     background-color: #4a1f66;
     padding: 2rem;

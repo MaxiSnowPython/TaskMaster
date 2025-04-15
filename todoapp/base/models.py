@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_profile")
     xp = models.IntegerField(default=0) 
     level = models.IntegerField(default=1)
 
@@ -36,13 +36,8 @@ class Team(models.Model):
     def __str__(self):
         return self.name
     
-class Friendship(models.Model):
-    from_user = models.ForeignKey(User, related_name='friendship_from', on_delete=models.CASCADE)
-    to_user = models.ForeignKey(User, related_name='friendship_to', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True, blank=True, related_name="profile")
+    friends = models.ManyToManyField(User, related_name='friends', blank=True)
     def __str__(self):
-        return f"{self.from_user} is friends with {self.to_user}"
-
-    class Meta:
-        unique_together = ('from_user', 'to_user')
+        return f"{self.user.username}"

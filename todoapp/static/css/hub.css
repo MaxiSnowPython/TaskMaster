@@ -8,9 +8,9 @@ body {
     height: 100vh;
 }
 
-/* Сайдбар - слева, фиксированная ширина */
+/* Сайдбар */
 .sidebar {
-    width: 5rem;
+    width: 4rem;
     background-color: #1b0c3d;
     padding: 1.5rem 1rem;
     display: flex;
@@ -18,12 +18,11 @@ body {
     align-items: center;
     gap: 1rem;
     box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
-    transition: width 0.3s ease;
+    transition: all 0.3s ease;
+    height: 100vh; /* ключевой момент */
     position: fixed;
     left: 0;
     top: 0;
-    bottom: 0;
-    overflow: hidden;
 }
 
 .sidebar-title {
@@ -32,6 +31,7 @@ body {
     margin-bottom: 1rem;
     transition: opacity 0.3s ease;
     white-space: nowrap;
+    opacity: 0;
 }
 
 .sidebar:hover .sidebar-title {
@@ -53,50 +53,91 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-
-
 .icon {
     font-size: 1.5rem;
     transition: transform 0.2s ease;
 }
 
-
-/* Основной контейнер - растягивается на весь экран */
+/* Контейнер */
 .hub-container {
     display: flex;
-    margin-left: 6rem; /* Отступ под sidebar */
+    justify-content: space-between;
+    margin-left: 6rem;
+    margin-right: 2rem;
     width: calc(100% - 6rem);
     height: 100vh;
- /* Расстояние между колонками */
+    gap: 2rem;
 }
 
-/* Левая панель (Профиль) - фиксированная ширина */
+/* Левая панель (Профиль) */
 .profile-sidebar {
-    flex: 0 0 20%; /* Фиксированная ширина 20% экрана */
-    width: 930px;/* Максимальная ширина */
+    flex: 0 0 20%;
+    max-width: 930px;
     background-color: #4a1d63;
     padding: 2rem;
     border-radius: 12px;
     text-align: center;
 }
 
-/* Центральная панель (Главная) - самая широкая */
-.hub-main {
-    flex: 1; /* Занимает всё оставшееся пространство */
-    min-width: 400px; /* Минимальная ширина */
-    background: #370566;
-    padding: 2rem;
-    border-radius: 12px;
-    overflow-y: auto;
-}
-
-/* Правая панель (Лидерборд) - фиксированная ширина */
-
 .avatar {
     width: 120px;
     height: 120px;
     border-radius: 50%;
     border: 3px solid gold;
+}
+
+/* Центральная панель */
+.hub-main {
+    margin-left: 5rem;   /* ширина сайдбара */
+    margin-right: 20rem; /* ширина правого leader блока */
+    width: calc(100% - 25rem);
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.teams, .tasks {
+    margin-bottom: 2rem;
+}
+
+.team-card {
+    background: #4a1f66;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    font-size: 1.3rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.team-card:hover {
+    background: #6d2f8c;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.create-team-btn,
+.complete-btn {
+    background: #4caf50;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.create-team-btn:hover,
+.complete-btn:hover {
+    background: #388e3c;
+    transform: scale(1.05);
 }
 
 .upgrade-btn {
@@ -116,59 +157,19 @@ body {
     transform: scale(1.05);
 }
 
-/* Центральная часть (40% экрана) */
-
-/* Команды */
-.teams, .tasks {
-    margin-bottom: 2rem;
-}
-
-.team-card {
-    background: #4a1f66;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border-radius: 12px;
-    text-decoration: none;
-    color: white;
-    display: block;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.2s ease;
-    font-size: 1.3rem;
-}
-
-.team-card:hover {
-    background: #6d2f8c;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.create-team-btn {
-    background: #4caf50;
-    padding: 15px;
-    font-size: 1.2rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.create-team-btn:hover {
-    background: #388e3c;
-    transform: scale(1.05);
-}
-
-/* Правая панель - Лидерборд (30% экрана) */
+/* Правая панель (Лидерборд) */
 .leaderboard {
-    flex: 0 0 20%; /* Фиксированная ширина 20% экрана */
-    min-width: 250px; /* Минимальная ширина */
-    max-width: 300px; /* Максимальная ширина */
+    width: 20rem;
     background-color: #4a1d63;
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: 0;
     text-align: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
 }
-
 
 .reward-card {
     background: #5a297a;
@@ -176,8 +177,8 @@ body {
     margin-bottom: 1rem;
     border-radius: 12px;
     text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
     font-size: 1.2rem;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .reward-card:hover {
@@ -185,6 +186,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* Общие элементы */
 ul {
     list-style: none;
     padding: 0;
@@ -193,19 +195,4 @@ ul {
 ul li {
     font-size: 1.2rem;
     margin-bottom: 1rem;
-}
-
-.complete-btn{
-    background: #4caf50;
-    padding: 15px;
-    font-size: 1.2rem;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-.complete-btn:hover {
-    background: #388e3c;
-    transform: scale(1.05);
 }

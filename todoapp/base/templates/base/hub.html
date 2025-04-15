@@ -32,7 +32,7 @@
     {% csrf_token %}
     <a href="{% url 'logout' %}">
         <button class="sidebar-button settings-btn">
-            <span class="icon">⚙️</span>
+            <span class="icon">🚪</span>
         </button>
     </a>
 </form>
@@ -67,7 +67,7 @@
             {% empty %}
                 <p>У тебя пока нет команд.</p>
             {% endfor %}
-            <button class="create-team-btn">Создать команду</button>
+            
         </section>
 
         <section class="tasks">

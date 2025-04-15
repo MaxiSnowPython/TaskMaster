@@ -1,7 +1,7 @@
 /* Общие стили */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(45deg, #2d1e6d, #4a1d63); /* Темно-фиолетовый градиент */
+    background: linear-gradient(to right, #1a0731, #3b1b5f);
     color: white;
     margin: 0;
     padding: 0;
@@ -130,7 +130,7 @@ body {
 .main-content {
     flex-grow: 1;
     padding: 3rem;
-    background: #370566;
+    background: linear-gradient(to right, #1a0731, #3b1b5f);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -217,7 +217,7 @@ body {
 
 /* Панель Наград */
 .rewards-panel {
-    width: 25%;
+    width: 20%;
     background-color: #4a1d63;
     padding: 2rem;
     box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.1);
