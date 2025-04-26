@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Team,Task
+from .models import Team,Task,Profile
 
 class UserMiniSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,3 +26,10 @@ class TaskSerializer(serializers.ModelSerializer):
     class Meta:        
         model = Task
         fields = ('team','user','title','xp','complete','created')
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserMiniSerializer(read_only=True)
+    friends = UserMiniSerializer(read_only=True,many = True)
+    class Meta:
+        model = Profile
+        fields = ('user','friends')

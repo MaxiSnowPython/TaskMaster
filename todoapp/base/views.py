@@ -13,7 +13,7 @@ from django.views import View
 from django.contrib import messages
 from django.contrib.auth import login
 from rest_framework import viewsets
-from .serializer import TeamSerializer,TaskSerializer
+from .serializer import TeamSerializer,TaskSerializer,ProfileSerializer
 from .models import Task,Team,UserProfile,Profile
 
 
@@ -160,3 +160,7 @@ class TeamApi(viewsets.ModelViewSet):
 class TaskApi(viewsets.ModelViewSet):
     queryset = Task.objects.all().order_by('title')
     serializer_class = TaskSerializer
+
+class ProfileApi(viewsets.ModelViewSet):
+    queryset = Profile.objects.all().order_by('user')
+    serializer_class = ProfileSerializer
