@@ -22,11 +22,6 @@ class Task(models.Model):
     class Meta:
         ordering = ['complete']
 
-class Reward(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True, blank=True)
-    xp = models.IntegerField()
-
-
 class Team(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_teams")
     members = models.ManyToManyField(User, related_name="teams")  
