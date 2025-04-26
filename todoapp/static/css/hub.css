@@ -29,9 +29,7 @@ body {
     font-size: 1rem;
     font-weight: bold;
     margin-bottom: 1rem;
-    transition: opacity 0.3s ease;
-    white-space: nowrap;
-    opacity: 0;
+
 }
 
 .sidebar:hover .sidebar-title {

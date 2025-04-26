@@ -12,7 +12,8 @@ from django.contrib.auth.models import User
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import login
-
+from rest_framework import viewsets
+from .serializer import TeamSerializer
 from .models import Task,Team,Reward,UserProfile,Profile
 
 
@@ -53,7 +54,7 @@ class TeamList(LoginRequiredMixin,TemplateView):
             context['tasks'] = Task.objects.filter(team_id=team_id, team__members=self.request.user)
             context['rewards'] = Reward.objects.all()  
         else:
-            # Если team_id не передан, показываем все задачи и награды пользователя
+  
             context['tasks'] = Task.objects.filter(team__members=self.request.user)
             context['rewards'] = Reward.objects.all()
             
@@ -61,17 +62,17 @@ class TeamList(LoginRequiredMixin,TemplateView):
 
 
 class HubView(LoginRequiredMixin, TemplateView):
-    template_name = "base/hub.html"  # Шаблон, который будет использоваться
+    template_name = "base/hub.html"  
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.request.user  # Получаем текущего пользователя
+        user = self.request.user
         
         context['user'] = user
         context['teams'] = Team.objects.filter(members=user)
         context['tasks'] = Task.objects.filter(user=user)
         context['rewards'] = Reward.objects.filter()
-        context['leaderboard'] = UserProfile.objects.order_by('-xp')[:10]  # Топ-10 игроков
+        context['leaderboard'] = UserProfile.objects.order_by('-xp')[:10]
 
         return context
 
@@ -83,7 +84,7 @@ class CreateTeam(LoginRequiredMixin, CreateView):
     fields = '__all__'
     success_url = reverse_lazy('hub')
     def form_valid(self, form):
-        form.instance.user = self.request.user  # Привязываем задачу к текущему пользователю
+        form.instance.user = self.request.user 
         return super().form_valid(form)
     
 class TaskDelete(LoginRequiredMixin,DeleteView):
@@ -98,21 +99,30 @@ class TeamMemberDelete(LoginRequiredMixin, View):
         team = get_object_or_404(Team, pk=team_id)
         user = get_object_or_404(User, pk=user_id)
 
-        # Удаляем участника из команды
         if request.user == team.creator or request.user.is_superuser:
             team.members.remove(user)
             return redirect('team', team_id=team.id)
         
 
-class TaskCreate(LoginRequiredMixin,CreateView):
-    model = Task
-    template_name = "base/create_task.html"
-    fields = ['title','user','xp']
-    success_url = reverse_lazy("hub")
-    def form_valid(self, form):
-        team = get_object_or_404(Team, pk=self.kwargs['pk'])
-        form.instance.team = team  # привязываем команду из URL
-        return super().form_valid(form)
+class TaskCreate(LoginRequiredMixin,View):
+    def get(self, request, pk):
+        team = get_object_or_404(Team, id=pk)
+        members = team.members.all()
+        return render(request, 'base/create_task.html', {
+            'team': team,
+            'members': members
+        })
+    def post(self, request, pk):
+        team = get_object_or_404(Team, id=pk)
+        title = request.POST.get('title')
+        user_id = request.POST.get('user')
+        user = get_object_or_404(User, id=user_id)
+        xp = request.POST.get('xp')
+
+        Task.objects.create(title=title, user=user, team=team,xp=xp)
+
+        return redirect('hub')
+
 
 
 
@@ -144,3 +154,8 @@ class AddFriendToTeamView(LoginRequiredMixin, View):
             'friendships': friends,
             'teams': teams
         })
+
+class TeamApi(viewsets.ModelViewSet):
+    queryset = Team.objects.all().order_by('name')
+    serializer_class = TeamSerializer
+    
