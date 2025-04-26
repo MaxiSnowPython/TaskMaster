@@ -13,8 +13,8 @@ from django.views import View
 from django.contrib import messages
 from django.contrib.auth import login
 from rest_framework import viewsets
-from .serializer import TeamSerializer
-from .models import Task,Team,Reward,UserProfile,Profile
+from .serializer import TeamSerializer,TaskSerializer
+from .models import Task,Team,UserProfile,Profile
 
 
 class CustomLoginView(LoginView):
@@ -51,12 +51,10 @@ class TeamList(LoginRequiredMixin,TemplateView):
         team_id = self.kwargs.get('team_id')
         if team_id:
             context['team'] = Team.objects.get(id=team_id, members=self.request.user)
-            context['tasks'] = Task.objects.filter(team_id=team_id, team__members=self.request.user)
-            context['rewards'] = Reward.objects.all()  
+            context['tasks'] = Task.objects.filter(team_id=team_id, team__members=self.request.user) 
         else:
   
             context['tasks'] = Task.objects.filter(team__members=self.request.user)
-            context['rewards'] = Reward.objects.all()
             
         return context
 
@@ -158,4 +156,7 @@ class AddFriendToTeamView(LoginRequiredMixin, View):
 class TeamApi(viewsets.ModelViewSet):
     queryset = Team.objects.all().order_by('name')
     serializer_class = TeamSerializer
-    
+
+class TaskApi(viewsets.ModelViewSet):
+    queryset = Task.objects.all().order_by('title')
+    serializer_class = TaskSerializer

@@ -1,9 +1,11 @@
 from django.urls import path, include
-from .views import TeamList,CustomLoginView,RegisterPage,HubView,CreateTeam,TaskDelete,TaskCreate,TeamMemberDelete,AddFriendToTeamView,TeamApi
+from .views import TeamList,CustomLoginView,RegisterPage,HubView,CreateTeam,TaskDelete,TaskCreate,TeamMemberDelete,AddFriendToTeamView,TeamApi,TaskApi
 from django.contrib.auth.views import LogoutView
 from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'teams',TeamApi)
+router.register(r'tasks',TaskApi)
+
 urlpatterns = [
   path('login/',CustomLoginView.as_view(), name = "login"),
   path('logout/',LogoutView.as_view(next_page = 'login'), name = 'logout'),
