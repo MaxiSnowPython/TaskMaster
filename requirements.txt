@@ -9,3 +9,4 @@ pyproject_hooks==1.2.0
 setuptools==80.7.1
 sqlparse==0.5.3
 wheel==0.45.1
+gunicorn==20.1.0
