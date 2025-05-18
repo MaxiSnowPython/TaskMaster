@@ -153,7 +153,7 @@ body {
 
 /* Каждая карточка таска теперь абсолютная и свободно двигается */
 .task-card {
-    position: absolute;
+    position: relative;
     background: #4a1f66;
     border-radius: 12px;
     padding: 1.5rem;

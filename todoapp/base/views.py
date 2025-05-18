@@ -53,9 +53,7 @@ class TeamList(LoginRequiredMixin,TemplateView):
             context['team'] = Team.objects.get(id=team_id, members=self.request.user)
             context['tasks'] = Task.objects.filter(team_id=team_id, team__members=self.request.user) 
         else:
-  
             context['tasks'] = Task.objects.filter(team__members=self.request.user)
-            
         return context
 
 
@@ -69,7 +67,6 @@ class HubView(LoginRequiredMixin, TemplateView):
         context['user'] = user
         context['teams'] = Team.objects.filter(members=user)
         context['tasks'] = Task.objects.filter(user=user)
-        context['rewards'] = Reward.objects.filter()
         context['leaderboard'] = UserProfile.objects.order_by('-xp')[:10]
 
         return context
