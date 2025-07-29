@@ -5,42 +5,35 @@ body {
     color: white;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    transition: background 0.3s ease-in-out;
 }
 
-/* Контейнер с тремя секциями */
+/* Контейнер */
 .container {
     display: flex;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+    min-height: 100vh;
+    width: 100%;
 }
 
 /* Sidebar */
 .sidebar {
     width: 4rem;
-    background-color: #1b0c3d; /* Темный фиолетовый для сайдбара */
+    background-color: #1b0c3d;
     padding: 1.5rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
 }
-
 
 .sidebar-title {
     font-size: 0.9rem;
     font-weight: bold;
     margin-bottom: 1rem;
-    /* Скрываем название при расширении */
-    transition: opacity 0.3s;
 }
 
 .sidebar-button {
-    background-color: #9b4f96; /* Яркий фиолетовый для кнопок */
+    background-color: #9b4f96;
     color: white;
     border: none;
     padding: 0.75rem;
@@ -55,17 +48,17 @@ body {
 }
 
 .sidebar-button:hover {
-    background-color: #c35b8d; /* Более яркий фиолетовый на hover */
+    background-color: #c35b8d;
 }
 
 .icon {
     font-size: 1.5rem;
 }
 
-/* Командный панель */
+/* Командная панель */
 .team-members {
     width: 25%;
-    background-color: #4a1d63; /* Более светлый фиолетовый для панели команды */
+    background-color: #4a1d63;
     padding: 2rem;
     box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.2);
 }
@@ -77,16 +70,15 @@ body {
 }
 
 .team-member {
-    background-color: #5f3a72; /* Средний фиолетовый */
+    background-color: #5f3a72;
     padding: 1rem;
     margin-bottom: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, background-color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .team-member:hover {
-    transform: scale(1.05);
     background-color: #7c4a8b;
 }
 
@@ -128,44 +120,28 @@ body {
 
 /* Основной контент */
 .main-content {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    padding: 0;
+    flex: 1;
+    padding: 2rem;
 }
 
 .main-title {
     font-size: 2rem;
-    padding: 1rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
+    margin-bottom: 2rem;
 }
 
 .tasks {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
-/* Каждая карточка таска теперь абсолютная и свободно двигается */
+/* Карточки задач */
 .task-card {
-    position: relative;
     background: #4a1f66;
     border-radius: 12px;
     padding: 1.5rem;
     width: 280px;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    cursor: grab;
-}
-
-.task-card:active {
-    cursor: grabbing;
-    z-index: 1000;
-    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    transition: box-shadow 0.3s ease;
 }
 
 .task-title {
@@ -205,16 +181,11 @@ body {
 
 /* Панель наград */
 .rewards-panel {
-    position: absolute;
-    right: 0;
-    top: 0;
     width: 300px;
-    height: 100%;
     background-color: #4a1d63;
     padding: 2rem;
     overflow-y: auto;
     box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 5;
 }
 
 .reward-card {
@@ -223,11 +194,10 @@ body {
     margin-bottom: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, background-color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .reward-card:hover {
-    transform: scale(1.05);
     background-color: #7c4a8b;
 }
 

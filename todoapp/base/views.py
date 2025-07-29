@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from rest_framework import viewsets
 from .serializer import TeamSerializer,TaskSerializer,ProfileSerializer
-from .models import Task,Team,UserProfile,Profile
+from .models import Task,Team,Profile
 
 
 class CustomLoginView(LoginView):
@@ -144,7 +144,7 @@ class AddFriendToTeamView(LoginRequiredMixin, View):
             messages.error(request, "Profile does not exist, new profile created.")
 
         friends = profile.friends.all()
-        teams = Team.objects.filter(creator=user)
+        teams = Team.objects.filter(members=user)
         return render(request, 'base/status.html', {
             'friendships': friends,
             'teams': teams

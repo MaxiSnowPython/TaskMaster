@@ -30,11 +30,10 @@
      
         <form method="post" action="{% url 'logout' %}">
             {% csrf_token %}
-            <a href="{% url 'logout' %}">
-                <button class="sidebar-button settings-btn">
+                <button action = "submit" class="sidebar-button settings-btn">
                     <span class="icon">🚪</span>
                 </button>
-            </a>
+
         </form>
             <a href = "{% url "add_friend_to_team" %}">
             <button class="sidebar-button user-btn">
@@ -59,17 +58,22 @@
                                     <p class="member-name">{{ member.username }}</p>
                                 {% endif %}
                                 <p>Уровень: 5</p>
+                                {% if user == team.creator %}
                                 <a href = "{% url "task_create" team.pk %}">
                                 <button class="assign-task-btn">Дать таск</button>
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
                         <br>
+                        {% if user == team.creator %}
                         <form method="post" action="{% url 'deletemember' team.id member.id %}">
                             {% csrf_token %}
                             <button type="submit" class="remove-member-btn">Убрать из команды</button>
+                            {% endif %}
                         </form>
                     </div>
+
                 {% endfor %}
             {% else %}
                 <p>В этой команде пока нет участников.</p>
