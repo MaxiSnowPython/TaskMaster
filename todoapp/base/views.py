@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.views import View
 from django.contrib import messages
 from django.contrib.auth import login
@@ -17,6 +17,8 @@ from .serializer import TeamSerializer,TaskSerializer,ProfileSerializer
 from .models import Task,Team,Profile
 
 
+
+User = get_user_model()
 class CustomLoginView(LoginView):
     template_name = 'base/task_login.html'
     fields = '__all__'
@@ -25,9 +27,14 @@ class CustomLoginView(LoginView):
         return reverse_lazy('hub')
     
 
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
+
 class RegisterPage(FormView):
     template_name = 'base/task_register.html'
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     redirect_authenticated_user = True
     success_url = reverse_lazy("hub")
     
@@ -67,7 +74,6 @@ class HubView(LoginRequiredMixin, TemplateView):
         context['user'] = user
         context['teams'] = Team.objects.filter(members=user)
         context['tasks'] = Task.objects.filter(user=user)
-        context['leaderboard'] = UserProfile.objects.order_by('-xp')[:10]
 
         return context
 
@@ -113,11 +119,8 @@ class TaskCreate(LoginRequiredMixin,View):
         user_id = request.POST.get('user')
         user = get_object_or_404(User, id=user_id)
         xp = request.POST.get('xp')
-
         Task.objects.create(title=title, user=user, team=team,xp=xp)
-
         return redirect('hub')
-
 
 
 

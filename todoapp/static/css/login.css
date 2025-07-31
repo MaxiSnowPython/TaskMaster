@@ -1,98 +1,126 @@
 /* Общие стили для страницы */
 body {
-    background-color: #f4f1de; /* Цвет пергамента */
-    font-family: 'MedievalSharp', cursive; /* Шрифт в средневековом стиле */
-    color: #3d405b; /* Цвет текста */
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #1a0731, #3b1b5f);
+    color: white;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
 }
 
-/* Шапка */
-.header-bar {
-    background-color: #8b4513; /* Цвет дерева */
-    color: #f4f1de; /* Цвет текста */
-    padding: 20px;
+/* Контейнер */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+/* Заголовок */
+h1 {
+    font-size: 1.8rem;
+    color: #ffcef2;
+    margin-bottom: 1.5rem;
     text-align: center;
-    border-bottom: 5px solid #5a3a22; /* Темная граница */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.header-bar h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* Форма */
 form {
-    background-color: #e6ccb2; /* Цвет светлого дерева */
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 400px;
-    border: 5px solid #8b4513; /* Граница в стиле дерева */
+    background-color: #2b0e44;
+    padding: 1.5rem;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    gap: 1rem;
+    align-items: center;
 }
 
 form p {
-    margin: 10px 0;
+    margin: 0;
+    text-align: center;
 }
 
 form label {
-    font-size: 1.2rem;
-    color: #5a3a22; /* Темный цвет для текста */
+    font-weight: bold;
+    font-size: 1rem;
+    color: #ffb3ff;
+    text-align: center;
 }
 
 form input[type="text"],
 form input[type="password"] {
-    padding: 10px;
-    margin-top: 5px;
-    border: 2px solid #8b4513; /* Граница в стиле дерева */
-    border-radius: 5px;
-    background-color: #f4f1de; /* Цвет пергамента */
-    font-family: 'MedievalSharp', cursive;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #fff;
+    color: #1a0731;
     font-size: 1rem;
-    color: #3d405b;
+    width: 100%;
+    text-align: center;
 }
 
 form input[type="text"]:focus,
 form input[type="password"]:focus {
     outline: none;
-    border-color: #5a3a22; /* Темная граница при фокусе */
+    box-shadow: 0 0 5px rgba(155, 79, 150, 0.5);
 }
 
 /* Кнопка */
 input[type="submit"] {
-    background-color: #8b4513; /* Цвет дерева */
-    color: #f4f1de; /* Цвет текста */
-    padding: 10px;
+    background-color: #9b4f96;
+    color: white;
     border: none;
-    border-radius: 5px;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 1rem;
     cursor: pointer;
-    font-family: 'MedievalSharp', cursive;
-    font-size: 1.2rem;
-    margin-top: 20px;
     transition: background-color 0.3s ease;
-    margin-left: 40%
+    margin-top: 1rem;
+    width: 50%;
+    text-align: center;
 }
 
 input[type="submit"]:hover {
-    background-color: #5a3a22; /* Темный цвет при наведении */
+    background-color: #b163b0;
 }
 
 /* Ссылка на регистрацию */
 p {
     text-align: center;
-    margin-top: 15px;
-    font-size: 1.1rem;
+    margin-top: 1rem;
+    font-size: 1rem;
 }
 
 a {
-    color: #8b4513; /* Цвет дерева */
+    color: #9b4f96;
     text-decoration: none;
     font-weight: bold;
 }
 
 a:hover {
-    color: #5a3a22; /* Темный цвет при наведении */
+    color: #b163b0;
+}
+
+/* Контент */
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
