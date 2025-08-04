@@ -49,8 +49,8 @@
     <aside class="profile-sidebar">
         <img src="{% static 'images/avatar.png' %}" alt="Avatar" class="avatar">
         <h2>{{ user.username }}</h2>
-        <p>Уровень: {{ user.profile.level }}</p>
-        <p>Опыт: {{ user.profile.xp }} XP</p>
+        <p>Уровень: {{ user.level }}</p>
+        <p>Опыт: {{ user.xp }} XP</p>
         <button class="upgrade-btn">Прокачать героя</button>
     </aside>
 

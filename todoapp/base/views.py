@@ -180,7 +180,6 @@ class TaskComplete(LoginRequiredMixin, View):
             messages.warning(request, "Эта задача уже выполнена.")
             return redirect(request.META.get("HTTP_REFERER", "/"))
 
-      
         task.complete = True
         task.save()
 
