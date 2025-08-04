@@ -7,13 +7,15 @@
 
     <a href="{% url 'hub' %}" class="back-link">&#8592; Вернуться назад</a>
 
-    <div class="delete-card">
-        <h2>Удаление задачи</h2>
-        <p>Вы уверены, что хотите удалить задачу: <strong>{{ taskd }}</strong> ?</p>
-        <form method="POST">
-            {% csrf_token %}
-            <input type="submit" value="Удалить" class="complete-btn">
-        </form>
+    <h2>Подтверждение выполнения</h2>
+    <p>Вы уверены, что хотите завершить задачу "{{ task.title }}" и получить {{ task.xp }} XP?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Да</button>
+        <a href="{% url 'hub' %}">Отмена</a>
+    </form>
+
     </div>
 </div>
 {% endblock content %}

@@ -106,7 +106,9 @@
                             <a href="{% url 'delete_task' task.id %}">
                                 <button class="delete-btn">🗑️</button>
                             </a>
-                            <button class="check-btn" onclick="markTaskDone({{ task.id }})">✔️</button>
+                            <a href="{% url 'confirm_task' task.id %}">
+                                <button type="button" class="check-btn">✔️</button>
+                            </a>
                         </div>
                     </div>
                 </div>
