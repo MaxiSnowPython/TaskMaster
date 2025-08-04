@@ -63,7 +63,13 @@ class TeamList(LoginRequiredMixin,TemplateView):
             context['tasks'] = Task.objects.filter(team__members=self.request.user)
         return context
 
-
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        task_id = request.POST.get('task_id')
+        if task_id:
+            task= Task.objects.get(id=task_id,team__members = user)
+            if Task.complete == True:
+                User.xp = User.xp + Task.xp
 class HubView(LoginRequiredMixin, TemplateView):
     template_name = "base/hub.html"  
 
@@ -164,3 +170,17 @@ class TaskApi(viewsets.ModelViewSet):
 class ProfileApi(viewsets.ModelViewSet):
     queryset = Profile.objects.all().order_by('user')
     serializer_class = ProfileSerializer
+
+class lvl_profile(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        xp_needed = user.level * 1000
+        progress = (user.xp / xp_needed) * 100
+        context = {
+                'level': user.level,
+                'xp': user.xp,
+                'xp_needed': xp_needed,
+                'progress': progress,
+            }
+        return render(self.request, self.template_name, context)
+    
