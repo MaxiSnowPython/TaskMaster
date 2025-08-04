@@ -51,7 +51,10 @@
         <h2>{{ user.username }}</h2>
         <p>Уровень: {{ user.level }}</p>
         <p>Опыт: {{ user.xp }} XP</p>
-        <button class="upgrade-btn">Прокачать героя</button>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="upgrade" value="1" class="upgrade-btn">Прокачать героя</button>
+        </form>
     </aside>
 
     <!-- Центральная часть - список команд и задач -->

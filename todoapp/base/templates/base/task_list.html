@@ -57,7 +57,7 @@
                                 {% else %}
                                     <p class="member-name">{{ member.username }}</p>
                                 {% endif %}
-                                <p>Уровень: 5</p>
+                                <p>Уровень: {{member.level}}</p>
                                 {% if user == team.creator %}
                                 <a href = "{% url "task_create" team.pk %}">
                                 <button class="assign-task-btn">Дать таск</button>

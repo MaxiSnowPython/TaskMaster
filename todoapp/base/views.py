@@ -76,7 +76,15 @@ class HubView(LoginRequiredMixin, TemplateView):
         context['tasks'] = Task.objects.filter(user=user)
 
         return context
+    def post(self, request, *args, **kwargs):
+        user = request.user
 
+        if "upgrade" in request.POST:
+          while user.xp >= 1000:
+            user.level += 1
+            user.xp -= 1000
+        user.save()
+        return redirect('hub')
 
 class CreateTeam(LoginRequiredMixin, CreateView):
 
@@ -174,15 +182,18 @@ class TaskComplete(LoginRequiredMixin, View):
         return render(request, self.template_name, {"task": task})
 
     def post(self, request, pk, *args, **kwargs):
-        user = request.user
-        task = get_object_or_404(Task, id=pk, team__members=user)
+        current_user = request.user
+  
+        task = get_object_or_404(Task, id=pk, team__members=current_user)
         if task.complete:
             messages.warning(request, "Эта задача уже выполнена.")
             return redirect(request.META.get("HTTP_REFERER", "/"))
 
         task.complete = True
         task.save()
-
-        user.xp += task.xp or 0
-        user.save()
+        
+        user = task.user
+        if user:
+            user.xp += task.xp or 0
+            user.save()
         return redirect('hub')
