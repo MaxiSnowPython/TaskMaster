@@ -1,0 +1,147 @@
+{% extends 'base/main.html' %}
+{% load static %}
+
+{% block css %}
+{% static 'css/tasks.css' %}
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+
+        <aside class="sidebar">
+            <button class="sidebar-button add-team-btn">
+                <span class="icon"><a href="{% url "hub" %}">🏠</a></span>
+            </button>
+            <h2 class="sidebar-title">Команды</h2>
+            {% if teams %}
+            {% for team in teams %}
+            <a href = "{% url "team" team.pk %}">
+                <button class="sidebar-button">{{ team.name }}</button>
+            </a>
+            {% endfor %}
+        {% else %}
+            <p>No teams found</p>
+        {% endif %}
+        <a href = "{% url "create_team" %}">
+            <button class="sidebar-button add-team-btn">
+                <span class="icon">+</span>
+            </button>
+        </a>
+     
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+                <button action = "submit" class="sidebar-button settings-btn">
+                    <span class="icon">🚪</span>
+                </button>
+
+        </form>
+            <a href = "{% url 'friendslist'%}">
+            <button class="sidebar-button user-btn">
+                <span class="icon">👤</span>
+            </button>
+        </a>
+        </aside>
+
+        <aside class="team-members">
+            {% if team %}
+            <h2>Участники команды: {{ team.name }}</h2>
+            {% if team.members.all %}
+                {% for member in team.members.all %}
+                    <div class="team-member">
+                        <div class="member-info">
+                            {% if member.avatar %}
+                            <img src="{{ member.avatar.url }}" alt="{{ member.username }}" class="avatar">
+                        {% else %}
+                            <img src="/static/images/default-avatar.png" alt="default" class="avatar">
+                        {% endif %}
+                            <div>
+                                {% if member == team.creator %}
+                                    <p class="member-name">{{ member.username }} 👑</p>
+                                    <p class="pod-class">{{member.podclass}} </p>
+                                {% else %}
+                                    <p class="member-name">{{ member.username }}</p>
+                                    <p class="pod-class">{{member.podclass}} </p>
+                                {% endif %}
+                                <p>Уровень: {{member.level}}</p>
+                                {% if user == team.creator %}
+                                {% if member != team.creatorx %}
+                                <a href = "{% url "task_create" team.pk %}">
+                                <button class="assign-task-btn">Дать таск</button>
+                                </a>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br>
+                        {% if user == team.creator  %}
+                        {% if member != team.creator %}
+                        <form method="post" action="{% url 'deletemember' team.id member.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="remove-member-btn">Убрать из команды</button>
+                            {% endif %}
+                            {% endif %}
+                        </form>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>В этой команде пока нет участников.</p>
+            {% endif %}
+        {% else %}
+            <p>Команда не выбрана.</p>
+        {% endif %}
+        {% if user == team.creator %}
+        
+        <a href="{% url 'add_friend_to_team' team_id=team_id %}">
+            <button class="add-member-btn">Добавить участника</button>
+        </a>
+        {% endif %}
+
+        </aside>
+
+        <!-- Main Content (Tasks) -->
+        <main class="main-content">
+            {% if team %}
+                <h1 class="main-title">Задачи {{ team.name }}</h1>
+            {% endif %}
+        
+            <div class="tasks">
+                
+                {% for task in tasks %}
+                {% if not task.complete  %}
+                <div class="task-card">
+                    <div class="task-content">
+                        <h3 class="task-title">{{ task.title }}</h3>
+                        <p class="task-assigned">Исполнитель: {{ task.user }}</p>
+                        <p class="reward-xp">+{{ task.xp }}</p>
+                        {% if user == team.creator%}
+                        <div class="task-actions">
+                            <button class="edit-btn" onclick="editTask({{ task.id }})">✏️</button>
+                            <a href="{% url 'delete_task' task.id %}">
+                                <button class="delete-btn">🗑️</button>
+                            </a>
+                            <a href="{% url 'confirm_task' task.id %}">
+                                <button type="button" class="check-btn">✔️</button>
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </main>
+     
+        <!-- Rewards Panel -->
+        <aside class="rewards-panel">
+            <h2 class="panel-title">Награды</h2>
+            {% for task in tasks %}
+            {% if not task.complete  %}
+                <div class="reward-card">
+                    <h3 class="reward-title">{{ task.title }}</h3>
+                    <p class="reward-xp">+{{ task.xp }}</p>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </aside>
+    </div>
+{% endblock content %}

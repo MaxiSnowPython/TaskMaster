@@ -1,0 +1,359 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #1a0731, #3b1b5f);
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Сайдбар */
+.sidebar {
+    width: 4rem;
+    background-color: #1b0c3d;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+.sidebar-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .sidebar-title {
+    opacity: 1;
+}
+
+.sidebar-button {
+    background-color: #9b4f96;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.icon {
+    font-size: 1.5rem;
+    transition: transform 0.2s ease;
+}
+
+/* Контейнер */
+.hub-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 6rem;
+    margin-right: 2rem;
+    width: calc(100% - 8rem);
+    height: 100vh;
+    gap: 2rem;
+    box-sizing: border-box;
+}
+
+/* Левая панель (Профиль) */
+.profile-sidebar {
+    max-width: 300px;
+    background-color: #4a1d63;
+    padding: 2rem;
+    text-align: center;
+}
+.edit_profile {
+    background: #4caf50;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid gold;
+}
+
+/* Центральная панель */
+.hub-main {
+    flex: 1; /* Занимает все доступное пространство */
+   
+    margin-right: 1rem; /* Уменьшен отступ для правого блока */
+    width: 400%; /* Растянуть на всю ширину */
+    height: 100vh; /* Полная высота экрана */
+    overflow-y: auto; /* Прокрутка при необходимости */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.teams, .tasks {
+    margin-bottom: 2rem;
+    width: 100%; /* Растянуть блоки команд и задач */
+}
+
+.team-card {
+    background: #4a1f66;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    font-weight: bold;
+    font-size: 1.3rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Растянуть карточки на всю ширину */
+}
+
+.team-card:hover {
+    background: #6d2f8c;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.create-team-btn, .complete-btn {
+    background: #4caf50;
+    padding: 15px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Растянуть кнопки на всю ширину */
+    max-width: 300px; /* Ограничение максимальной ширины для эстетики */
+    margin: 0 auto; /* Центрирование */
+}
+
+.create-team-btn:hover, .complete-btn:hover {
+    background: #388e3c;
+    transform: scale(1.05);
+}
+
+.upgrade-btn {
+    background: #ffcc00;
+    border: none;
+    padding: 15px 20px;
+    color: black;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Растянуть кнопку улучшения */
+    max-width: 300px; /* Ограничение максимальной ширины */
+    margin: 0 auto; /* Центрирование */
+}
+
+.upgrade-btn:hover {
+    background: #ff9900;
+    transform: scale(1.05);
+}
+
+/* Правая панель (Лидерборд) */
+.leaderboard {
+    width: 20rem;
+    background-color: #4a1d63;
+    padding: 2rem;
+    border-radius: 0;
+    text-align: center;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
+}
+
+.reward-card {
+    background: #5a297a;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.reward-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Общие элементы */
+ul {
+    list-style: none;
+    padding: 0;
+    width: 100%; /* Растянуть список */
+}
+
+ul li {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    width: 100%; /* Растянуть элементы списка */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0.5rem;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .sidebar-title {
+        font-size: 0.9rem;
+        margin: 0;
+        opacity: 1;
+    }
+
+    .sidebar-button {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+    }
+
+    .icon {
+        font-size: 1.2rem;
+    }
+
+    .hub-container {
+        flex-direction: column;
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        height: auto;
+        gap: 1rem;
+    }
+
+    .profile-sidebar {
+        flex: none;
+        max-width: 100%;
+        padding: 1rem;
+        margin: 4rem 1rem 1rem;
+    }
+
+    .avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .hub-main {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        height: auto;
+        padding: 1rem;
+    }
+
+    .team-card {
+        font-size: 1.1rem;
+        padding: 1rem;
+    }
+
+    .create-team-btn, .complete-btn, .upgrade-btn {
+        font-size: 1rem;
+        padding: 10px;
+        max-width: 100%; /* Полная ширина на мобильных */
+    }
+
+    .leaderboard {
+        position: static;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .reward-card {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    ul li {
+        font-size: 1rem;
+    }
+}
+
+/* Для очень маленьких экранов (меньше 480px) */
+@media (max-width: 480px) {
+    .sidebar {
+        padding: 0.3rem;
+    }
+
+    .sidebar-button {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .icon {
+        font-size: 1rem;
+    }
+
+    .profile-sidebar {
+        padding: 0.5rem;
+        margin: 3.5rem 0.5rem 0.5rem;
+    }
+
+    .avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .hub-main {
+        padding: 0.5rem;
+    }
+
+    .team-card {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+
+    .create-team-btn, .complete-btn, .upgrade-btn {
+        font-size: 0.9rem;
+        padding: 8px;
+        max-width: 100%;
+    }
+
+    .reward-card {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+
+    ul li {
+        font-size: 0.9rem;
+    }
+}

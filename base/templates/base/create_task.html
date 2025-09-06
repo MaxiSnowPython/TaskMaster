@@ -1,0 +1,58 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block css %}{% static "css/task_create.css" %}{% endblock css %}
+
+{% block content %}
+<div class="hub-main">
+
+    <div class="create-task-card">
+        <h1>Создание задачи для команды "{{ team.name }}"</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label for="id_title">Название задачи</label>
+            <input type="text" name="title" id="id_title" required>
+
+            <label for="id_xp">XP (награда)</label>
+            <input type="number" name="xp" id="id_xp" required>
+
+            <label for="id_user">Назначить исполнителя</label>
+            <select name="user" id="id_user">
+                {% for member in members %}
+                    <option value="{{ member.id }}">{{ member.username }}</option>
+                {% endfor %}
+            </select>
+            <label for="diff">Назначить сложность</label>
+            <select name="difficulty" id="id_difficulty">
+                {% for difficult in diff %}
+                    <option value="{{ difficult.id }}">{{ difficult.name }}</option>
+                {% endfor %}
+            </select>
+            {% if messages %}
+            {% for message in messages %}
+              <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+            <input type="submit" value="Создать" class="complete-btn" id="create-task-btn">
+        </form>
+ 
+<script>
+    const btn = document.getElementById("create-task-btn");
+    const form = btn.closest("form");
+
+    form.addEventListener("submit", function() {
+        btn.disabled = true;         
+        btn.value = "Создаётся...";   
+    });
+</script>
+        
+
+        <a href="{% url "team" team.pk %}" class="back-link">← Вернуться к команде</a>
+    </div>
+
+</div>
+{% endblock content %}

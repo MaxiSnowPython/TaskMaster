@@ -1,0 +1,91 @@
+/* Общие стили страницы */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #1a0731, #3b1b5f);
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Контейнер для контента */
+.hub-main {
+    max-width: 600px;
+    margin: 5rem auto;
+    background-color: #4a1d63;
+    padding: 2rem 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+/* Ссылка "Вернуться назад" */
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #ffd633;
+}
+
+/* Заголовок */
+.hub-main h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #ffd700;
+}
+
+/* Текст подтверждения */
+.hub-main p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+/* Форма */
+.hub-main form {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Кнопки */
+.hub-main button, .hub-main a {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Подтвердить */
+.hub-main button {
+    background-color: #27ae60;
+    color: white;
+}
+
+.hub-main button:hover {
+    background-color: #1e8449;
+    transform: scale(1.05);
+}
+
+/* Отмена */
+.hub-main a {
+    background-color: #c0392b;
+    color: white;
+    line-height: 2.2rem;
+}
+
+.hub-main a:hover {
+    background-color: #922b21;
+    transform: scale(1.05);
+}

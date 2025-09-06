@@ -1,0 +1,27 @@
+{% extends "base/main.html" %}
+{% load static %}
+{% block css %}{% static "css/team_create.css" %}{% endblock css %}
+{% block content %}
+<div class="container">
+    <h1>Создать команду</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <label for="members">Выберите друзей:</label>
+        <select name="members" id="members" multiple>
+            {% for friend in friends %}
+                <option value="{{ friend.username }}">{{ friend.username }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Создать команду">
+    </form>
+    <p>Вернуться в <a href="{% url 'hub' %}">Хаб</a></p>
+</div>
+{% endblock content %}

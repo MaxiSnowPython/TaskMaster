@@ -1,0 +1,214 @@
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #1a0731, #3b1b5f);
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Контейнер */
+.container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 4rem;
+    background-color: #1b0c3d;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.sidebar-button {
+    background-color: #9b4f96;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar-button:hover {
+    background-color: #c35b8d;
+}
+
+.icon {
+    font-size: 1.5rem;
+}
+
+/* Командная панель */
+.team-members {
+    width: 25%;
+    background-color: #4a1d63;
+    padding: 2rem;
+    box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.panel-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.team-member {
+    background-color: #5f3a72;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.team-member:hover {
+    background-color: #7c4a8b;
+}
+
+.member-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.member-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.role-crown {
+    color: gold;
+}
+
+.assign-task-btn, .remove-member-btn, .add-member-btn {
+    background-color: #9b4f96;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.assign-task-btn:hover, .remove-member-btn:hover, .add-member-btn:hover {
+    background-color: #c35b8d;
+}
+
+/* Основной контент */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+}
+
+.main-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.tasks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Карточки задач */
+.task-card {
+    background: #4a1f66;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 280px;
+    transition: box-shadow 0.3s ease;
+}
+
+.task-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.task-assigned {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.reward-xp {
+    font-size: 1.1rem;
+    color: #ffcc00;
+    margin-bottom: 1rem;
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.task-actions button {
+    background: #6d2f8c;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.task-actions button:hover {
+    background: #8740b1;
+}
+
+/* Панель наград */
+.rewards-panel {
+    width: 300px;
+    background-color: #4a1d63;
+    padding: 2rem;
+    overflow-y: auto;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.reward-card {
+    background-color: #5f3a72;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.reward-card:hover {
+    background-color: #7c4a8b;
+}
+
+.reward-title {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.reward-xp {
+    color: #4caf50;
+    font-weight: bold;
+    font-size: 1.1rem;
+}

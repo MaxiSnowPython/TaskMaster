@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description"
+        content="This is to do list implemented using Django by Dennis Ivy who is a full stack web developer.">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>To Do Items</title>
+    <link rel="stylesheet" href="{% block css %}{% endblock css %}">
+    
+
+    
+</head>
+
+<body>
+
+    <div class="container">
+        {% block content %} {% endblock content %}
+    </div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,34 @@
+.delete-card {
+    background: #5a297a;
+    padding: 2rem;
+    margin: 2rem auto;
+    border-radius: 12px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.delete-card h2 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.delete-card p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    color: #b6a975;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: #ffa500;
+}

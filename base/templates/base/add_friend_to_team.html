@@ -1,0 +1,34 @@
+
+{% extends 'base/main.html' %}
+{% load static %}
+{% block css %}{% static "css/add_friend_to_team.css" %}{% endblock css %}
+
+{% block content %}
+
+<div class="hub-main">
+    <h2>Добавить друзей в команду</h2>
+
+    {% if friends %}
+    <form method="post">
+        {% csrf_token %}
+        <a href="{% url 'hub' %}" class="back-link">&#8592; Вернуться назад</a>
+        <ul class="friend-list">
+            {% for friend in friends %}
+                {% if friend not in team.members.all %}
+                    <li>
+                        <label>
+                            <input type="checkbox" name="friends" value="{{ friend.id }}">
+                            {{ friend.username }}
+                        </label>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <button type="submit" class="btn btn-success">Добавить выбранных</button>
+    </form>
+{% else %}
+    <p>У тебя пока нет друзей 😢 или твой друг уже в команде </p></br>
+    <p>Вернутся <a href = '{% url "hub" %}'> назад</a></p>
+{% endif %}
+</div>
+{% endblock content %}

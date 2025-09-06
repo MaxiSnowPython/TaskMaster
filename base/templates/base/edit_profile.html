@@ -1,0 +1,17 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block css %}{% static "css/confirm_task.css" %}{% endblock css %}
+
+{% block content %}
+<div class="hub-main">
+
+    <a href="{% url 'hub' %}" class="back-link">&#8592; Вернуться назад</a>
+
+<form method="POST" enctype='multipart/form-data'>
+    {{form.as_p}}
+    {% csrf_token %}
+    <input type="submit" value="Изменить профиль" class="complete-btn">
+</form>
+    </div>
+</div>
+{% endblock content %}
