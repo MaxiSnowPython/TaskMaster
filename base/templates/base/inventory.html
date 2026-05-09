@@ -1,0 +1,107 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block css %}{% static "css/inventory.css" %}{% endblock css %}
+
+{% block content %}
+<div class="inventory-wrapper">
+
+    <a href="{% url 'hub' %}" class="back-link">&#8592; Вернуться в хаб</a>
+
+    <h1>Инвентарь</h1>
+    <p class="subtitle">Предметы выдаются за выполнение задач (шанс 40%)</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div style="background:#1a3a1a;border:1px solid #2d6a2d;padding:10px 16px;border-radius:8px;margin-bottom:16px;color:#86efac;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Слоты надетых предметов -->
+    <div class="equipped-section">
+        <h2>Экипировка</h2>
+        <div class="equipped-slots">
+            {% with weapon=None armor=None boots=None accessory=None %}
+            {% for ui in inventory %}
+                {% if ui.equipped and ui.item.slot == 'weapon' %}
+                    {% with weapon=ui %}{% endwith %}
+                {% endif %}
+            {% endfor %}
+
+            <div class="slot {% for ui in inventory %}{% if ui.equipped and ui.item.slot == 'weapon' %}filled{% endif %}{% endfor %}">
+                <div class="slot-label">Оружие</div>
+                {% for ui in inventory %}
+                    {% if ui.equipped and ui.item.slot == 'weapon' %}
+                        <div class="slot-icon">{{ ui.item.icon }}</div>
+                        <div class="slot-name">{{ ui.item.name }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="slot {% for ui in inventory %}{% if ui.equipped and ui.item.slot == 'armor' %}filled{% endif %}{% endfor %}">
+                <div class="slot-label">Броня</div>
+                {% for ui in inventory %}
+                    {% if ui.equipped and ui.item.slot == 'armor' %}
+                        <div class="slot-icon">{{ ui.item.icon }}</div>
+                        <div class="slot-name">{{ ui.item.name }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="slot {% for ui in inventory %}{% if ui.equipped and ui.item.slot == 'boots' %}filled{% endif %}{% endfor %}">
+                <div class="slot-label">Обувь</div>
+                {% for ui in inventory %}
+                    {% if ui.equipped and ui.item.slot == 'boots' %}
+                        <div class="slot-icon">{{ ui.item.icon }}</div>
+                        <div class="slot-name">{{ ui.item.name }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="slot {% for ui in inventory %}{% if ui.equipped and ui.item.slot == 'accessory' %}filled{% endif %}{% endfor %}">
+                <div class="slot-label">Аксессуар</div>
+                {% for ui in inventory %}
+                    {% if ui.equipped and ui.item.slot == 'accessory' %}
+                        <div class="slot-icon">{{ ui.item.icon }}</div>
+                        <div class="slot-name">{{ ui.item.name }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endwith %}
+        </div>
+    </div>
+
+    <!-- Все предметы -->
+    <div class="all-items-section">
+        <h2>Все предметы</h2>
+        {% if inventory %}
+        <div class="items-grid">
+            {% for ui in inventory %}
+            <div class="item-card {% if ui.equipped %}equipped{% endif %}">
+                <span class="item-icon">{{ ui.item.icon }}</span>
+                {% if ui.equipped %}<span class="equipped-badge">Надето</span>{% endif %}
+                <div class="item-name">{{ ui.item.name }}</div>
+                <div class="item-slot">{{ ui.item.get_slot_display }}</div>
+                <div class="item-desc">{{ ui.item.description }}</div>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_item_id" value="{{ ui.id }}">
+                    {% if ui.equipped %}
+                        <button type="submit" class="equip-btn unequip">Снять</button>
+                    {% else %}
+                        <button type="submit" class="equip-btn equip">Надеть</button>
+                    {% endif %}
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-msg">
+            У тебя пока нет предметов.<br>Выполняй задачи — есть шанс получить лут!
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}

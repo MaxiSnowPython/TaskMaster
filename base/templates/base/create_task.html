@@ -29,6 +29,17 @@
                     <option value="{{ difficult.id }}">{{ difficult.name }}</option>
                 {% endfor %}
             </select>
+
+            {% if is_creator %}
+            <label for="id_reward_item">Предмет-награда (необязательно)</label>
+            <select name="reward_item" id="id_reward_item">
+                <option value="">— Без предмета (случайный шанс 40%) —</option>
+                {% for item in items %}
+                    <option value="{{ item.id }}">{{ item.icon }} {{ item.name }} [{{ item.get_slot_display }}]</option>
+                {% endfor %}
+            </select>
+            {% endif %}
+
             {% if messages %}
             {% for message in messages %}
               <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">

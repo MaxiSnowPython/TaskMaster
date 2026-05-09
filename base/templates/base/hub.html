@@ -30,11 +30,9 @@
 
 <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
-    <a href="{% url 'logout' %}">
-        <button class="sidebar-button settings-btn">
-            <span class="icon">🚪</span>
-        </button>
-    </a>
+    <button type="submit" class="sidebar-button settings-btn">
+        <span class="icon">🚪</span>
+    </button>
 </form>
     <a href = "{% url "friendslist" %}">
     <button class="sidebar-button user-btn">
@@ -58,7 +56,9 @@
             {% csrf_token %}
             <button type="submit" name="upgrade" value="1" class="upgrade-btn">Прокачать героя</button>
         </form></br></br>
-        <a href = "{% url "edit_profile" %}" class = "edit_profile">Изменить свой профиль<a>
+        <a href="{% url 'edit_profile' %}" class="edit_profile">Изменить свой профиль</a>
+        <br><br>
+        <a href="{% url 'inventory' %}" class="edit_profile">Инвентарь</a>
     </aside>
 
     <!-- Центральная часть - список команд и задач -->
@@ -81,7 +81,7 @@
             {% for task in tasks %}
                 <div class="task-card">
                     <h3>{{ task.title }}</h3>
-                    <p>Награда: +{{ task.reward.xp }} XP</p>
+                    <p>Награда: +{{ task.xp }} XP</p>
                     <button class="complete-btn">Выполнить</button>
                 </div>
             {% empty %}

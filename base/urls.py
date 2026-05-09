@@ -1,8 +1,14 @@
 from django.urls import path, include
-from .views import *
 from django.contrib.auth.views import LogoutView
-from rest_framework import routers
 from django.conf.urls.static import static
+from django.conf import settings
+from rest_framework import routers
+from .views import (
+    CustomLoginView, RegisterPage, TeamList, HubView, CreateTeam,
+    TaskDelete, TaskCreate, TeamMemberDelete, FriendList, TaskComplete,
+    HandleFriendRequestView, AddFriendToTeam, EditProfile, InventoryView,
+    SendFriendRequestView, TeamApi, TaskApi,
+)
 router = routers.DefaultRouter()
 router.register(r'teams',TeamApi)
 router.register(r'tasks',TaskApi)
@@ -23,6 +29,7 @@ urlpatterns = [
   path('friend/handle/<int:request_id>/<str:action>/', HandleFriendRequestView.as_view(), name='handle_friend_request'),
   path("team/<int:team_id>/add_friends/", AddFriendToTeam.as_view(), name="add_friend_to_team"),
   path('edit_profile',EditProfile.as_view(),name= "edit_profile"),
+  path('inventory/', InventoryView.as_view(), name='inventory'),
   
 
 

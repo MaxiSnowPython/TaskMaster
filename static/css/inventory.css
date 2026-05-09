@@ -1,0 +1,204 @@
+body {
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+}
+
+.inventory-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.back-link {
+    color: #a78bfa;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 24px;
+}
+
+.back-link:hover {
+    color: #c4b5fd;
+}
+
+h1 {
+    font-size: 28px;
+    color: #c4b5fd;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+/* Equipped section */
+.equipped-section {
+    background: #16213e;
+    border: 1px solid #2d2d5e;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+}
+
+.equipped-section h2 {
+    color: #fbbf24;
+    font-size: 16px;
+    margin: 0 0 16px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.equipped-slots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.slot {
+    background: #0f0f23;
+    border: 2px dashed #2d2d5e;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot.filled {
+    border-color: #fbbf24;
+    background: #1a1730;
+}
+
+.slot-label {
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+
+.slot-icon {
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.slot-name {
+    font-size: 11px;
+    color: #c4b5fd;
+    word-break: break-word;
+}
+
+/* All items grid */
+.all-items-section h2 {
+    color: #a78bfa;
+    font-size: 16px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+}
+
+.item-card {
+    background: #16213e;
+    border: 2px solid #2d2d5e;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.1s;
+}
+
+.item-card:hover {
+    transform: translateY(-2px);
+}
+
+.item-card.equipped {
+    border-color: #fbbf24;
+    background: #1f1a35;
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.15);
+}
+
+.item-card .item-icon {
+    font-size: 36px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.item-card .item-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e0e0e0;
+    margin-bottom: 4px;
+}
+
+.item-card .item-slot {
+    font-size: 11px;
+    color: #7c6fcd;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.item-card .item-desc {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 12px;
+    min-height: 28px;
+}
+
+.equip-btn {
+    width: 100%;
+    padding: 6px 0;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.equip-btn.equip {
+    background: #4c1d95;
+    color: #c4b5fd;
+}
+
+.equip-btn.equip:hover {
+    background: #5b21b6;
+}
+
+.equip-btn.unequip {
+    background: #78350f;
+    color: #fbbf24;
+}
+
+.equip-btn.unequip:hover {
+    background: #92400e;
+}
+
+.equipped-badge {
+    display: inline-block;
+    font-size: 10px;
+    background: #fbbf24;
+    color: #1a1a2e;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.empty-msg {
+    color: #555;
+    font-size: 14px;
+    padding: 40px 0;
+    text-align: center;
+}
